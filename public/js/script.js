@@ -1,52 +1,26 @@
-const scoreForm = document.getElementById('scoreForm');
-const scoreTable = document.getElementById('scoreTable');
+$(document).ready(function() {
+  function updateTable() {
+    $.get('/getScores', function(scores) {
+      var tableBody = '';
+      scores.forEach(function(score) {
+        tableBody += '<tr><td>' + score.score + '</td><td>' + score.name + '</td><td>' + score.lastName + '</td></tr>';
+      });
+      $('#scoreTableBody').html(tableBody);
+    });
+  }
 
-scoreForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-
-const scoreInput = document.getElementById('score');
-const nameInput = document.getElementById('name');
-const lastnameInput = document.getElementById('lastname');
-
-const score = scoreInput.value;
-const name = nameInput.value;
-const lastname = lastnameInput.value;
-
-  await fetch('/scores', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ score, name, lastname })
+  $('#scoreForm').submit(function(event) {
+    event.preventDefault();
+    var score = $('#scoreInput').val();
+    var name = $('#nameInput').val();
+    var lastName = $('#lastNameInput').val();
+    $.post('/addScore', { score: score, name: name, lastName: lastName }, function() {
+      updateTable();
+      $('#scoreInput').val('');
+      $('#nameInput').val('');
+      $('#lastNameInput').val('');
+    });
   });
 
-  scoreInput.value = '';
-  nameInput.value = '';
-  lastnameInput.value = '';
-
-  await refreshScores();
+  updateTable();
 });
-
-async function refreshScores() {
-    const response = await fetch('/scores');
-    const scores = await response.json();
-
-  scoreTable.innerHTML = '';
-
-  scores.forEach(score => {
-      const row = document.createElement('tr');
-      const scoreCell = document.createElement('td');
-      const nameCell = document.createElement('td');
-      const lastnameCell = document.createElement('td');
-
-      scoreCell.textContent = score.score;
-      nameCell.textContent = score.name;
-      lastnameCell.textContent = score.lastname;
-
-      row.appendChild(scoreCell);
-      row.appendChild(nameCell);
-      row.appendChild(lastnameCell);
-      scoreTable.appendChild(row);
-  });
-}
-refreshScores();

@@ -9,6 +9,7 @@
     <script src="/public/js/script.js"></script> 
     <link href="/public/css/main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     
 </head>
 <body>
@@ -22,7 +23,7 @@
     <!-- add score namn -->
     <h3>Add your imaginary scores, Sir!</h3>
 
-    <form id="ScoreForm" action="/scores" method="POST">  <!--  ?-->
+    <form id="ScoreForm">  <!--  ?-->
       <label for="score">Score:</label>
       <input type="number" id="score" name="score" placeholder="Enter Score">
       <label for="name">Name:</label>
@@ -33,6 +34,7 @@
       <button type="submit">Submit</button>
     </form>
 
+    <h4>Ur Sc0res (>'_')></h4>
     <table id="scoreTable">
         <thead>
           <tr>
@@ -41,19 +43,18 @@
             <th>Surname</th>
           </tr>
         </thead>
-        <tbody>
-          <!-- score b here -->
-        </tbody>
+          <tbody id="scoreTableBody">
+            <!-- scöres -->
+          </tbody>
+
      </table>
 
     </div>
-
-    <a href="/views/about.html">About Page</a>
-
+    <!-- <a href="/views/about.html">About Page</a> -->
     <div>
         <footer>
         <div>
-            <h4>SHEESH</h3>
+            <h5>SHEESH</h5>
         </div>
     </footer>
     </div>
