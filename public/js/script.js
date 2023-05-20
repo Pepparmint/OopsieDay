@@ -16,19 +16,28 @@ fetch("savedScores.json").then(function(response){
 */
 
 $(document).ready(function() {
-var scoreCount = 1;
+var scoreBoardData = [];
 
-function addScoreInput() {
-  var inputHtml = '<div><label for="scoreInput' + scoreCount + '">Score:</label>' +
-    '<input type="number" id="scoreInput' + scoreCount + '" required>' +
-    '<label for="nameInput' + scoreCount + '">Name:</label>' +
-    '<input type="text" id="nameInput' + scoreCount + '" required>' +
-    '<label for="lastNameInput' + scoreCount + '">Last Name:</label>' +
-    '<input type="text" id="lastNameInput' + scoreCount + '" required></div>';
+function addData(){
+  var score = document.sample.score.value;
+  var name = document.sample.name.value;
+  var lastName = document.sample.lastName.value;
 
-  $('#scoreInputs').append(inputHtml);
-  scoreCount++;
+  var tr = document.createElement('tr');
+
+  var td1 = tr.appendChild(document.createElement('td'));
+  var td2 = tr.appendChild(document.createElement('td'));
+  var td3 = tr.appendChild(document.createElement('td'));
+
+  td1.innerHTML=score;
+  td2.innerHTML=name;
+  td3.innerHTML=lastName;
+
+  document.getElementById("scoreTableBody").appendChild('tr');
 }
+});
+
+/*
 
 function updateTable() {
   $.get('/getScores', function(scores) {
@@ -65,4 +74,4 @@ $('#addScoreButton').click(function() {
 });
 
 updateTable();
-});
+}); */
