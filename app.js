@@ -1,33 +1,46 @@
 // import
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const port = 8080;
-const path = require('path');
 
-app.use(express.static(__dirname + 'public'));
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 
-// app.use(express.static('public'));
 app.use('/css', express.static(__dirname + 'public/css'));
 app.use('/js', express.static(__dirname + 'public/js'));
 app.use('/img', express.static(__dirname + 'public/img'));
 
-let scores = [];
+let data = [];
+fs.readFile('data.json', (err, jsonData) => {
+  if (!err) {
+    data = JSON.parse(jsonData);
+  }
+});
 
 app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/public/index.html');
-  });
-  
-  app.post('/addScore', (req, res) => {
-    const { score, name, lastName } = req.body;
-    scores.push({ score, name, lastName });
-    res.redirect('/');
-  });
-  
-  app.get('/getScores', (req, res) => {
-    res.json(scores);
+  res.sendFile(__dirname + '/views/index.html');
+});
+
+app.get('/data', (req, res) => {
+  res.json(data);
+});
+
+app.post('/submit', (req, res) => {
+  const score = req.body.score;
+  const name = req.body.name;
+  const lastname = req.body.lastname;
+
+  data.push({ score, name, lastname });
+
+  fs.writeFile('data.json', JSON.stringify(data), (err) => {
+    if (err) {
+      console.error('Error writing to data file:', err);
+    }
   });
 
+  res.redirect('/');
+});
 /* ejs stuff
 
 app.get('/views', (req, res)=> {

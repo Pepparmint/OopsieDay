@@ -104,13 +104,14 @@ button{
     font-family: "consolas", sans-serif;
     font-style: italic;
     font-weight: bold;
-    font-size: 26px;
+    font-size: 18px;
     width: 200;
+    height: 100;
     border-radius: 10px;
     border-color: gold;
     padding: 15px;
     margin:20px;
-    position: absolute;
+    position: right;
     bottom: 10%;
     right: 40%;
     left: 40%;
@@ -123,7 +124,7 @@ form{
     font-style: italic;
     font-weight: bold;
     font-size: 18px;
-    border-top-style: dotted;
+    border-collapse: collapse;
     border-style:solid;
     border-color: silver;
     border-radius: 5px;
