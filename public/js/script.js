@@ -38,7 +38,7 @@ submitButton.addEventListener('click', () => {
         window.location.href = response.url;
       }
     });
-});
+  });
     fetch('/data')
       .then(response => response.json())
       .then(data => {
