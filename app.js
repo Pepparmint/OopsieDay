@@ -41,7 +41,8 @@ app.post('/submit', (req, res) => {
 
   res.redirect('/');
 });
-/* ejs stuff
+/*
+ejs stuff
 
 app.get('/views', (req, res)=> {
     res.sendFile(path.join(__dirnamem, 'index.html'));
