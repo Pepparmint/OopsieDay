@@ -35,7 +35,7 @@
         </div>
       </div>
       <button type="button" id="addScoreButton" onclick="addData();">Add Sc0re</button> <!-- !!!!!! -->
-      <button1 type="sumbit">Submit</button>
+      <button1 type="submit">Submit</button>
     </form>
 
     <h4>[>'_']></h4>
@@ -52,6 +52,28 @@
           </tbody>
 
      </table>
+
+     <!--
+     <script type="text/javascript"> //IDK MAN
+      function addData(){
+        var score = document.scoreForm.score.value;??
+        var name = document.scoreForm.name.value;??
+        var lastName = document.scoreForm.lastName.value;??
+      
+        var tr = document.createElement('tr');
+      
+        var td1 = tr.appendChild(document.createElement('td'));
+        var td2 = tr.appendChild(document.createElement('td'));
+        var td3 = tr.appendChild(document.createElement('td'));
+      
+        td1.innerHTML=score;
+        td2.innerHTML=name;
+        td3.innerHTML=lastName;
+      
+        document.getElementById("scoreTable").appendChild('tr');
+      }
+    </script>
+    -->
 
     </div>
     <!-- <a href="/views/about.html">About Page</a> -->
