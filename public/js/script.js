@@ -39,4 +39,18 @@ submitButton.addEventListener('click', () => {
       }
     });
 });
+    fetch('/data')
+      .then(response => response.json())
+      .then(data => {
+        const tableBody = document.querySelector('#dataTable tbody');
+        data.forEach(entry => {
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>${entry.score}</td>
+            <td>${entry.name}</td>
+            <td>${entry.lastname}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      });
 });
