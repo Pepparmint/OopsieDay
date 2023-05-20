@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="/public/js/script.js"></script> 
+    <link href="/public/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+    <header>
+        <h1>Hallo dis iz weBsit3</h1>
+            <h2>Sans</h2>
+    </header>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+    <!-- add score namn -->
+    <h3>Add your imaginary scores, Sir!</h3>
+
+    <form id="ScoreForm" action="/scores" method="POST">  <!--  ?-->
+      <label for="score">Score:</label>
+      <input type="number" id="score" name="score" placeholder="Enter Score">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter Name">
+      <label for="lastname">Last Name:</label>
+      <input type="text" id="lastname" name="lastname" placeholder="Enter Surname">
+      <br>
+      <button type="submit">Submit</button>
+    </form>
+
+    <table id="scoreTable">
+        <thead>
+          <tr>
+            <th>Score</th>
+            <th>Name</th>
+            <th>Surname</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- score b here -->
+        </tbody>
+     </table>
+
+    </div>
+
+    <a href="/views/about.html">About Page</a>
+
+    <div>
+        <footer>
+        <div>
+            <h4>SHEESH</h3>
+        </div>
+    </footer>
+    </div>
+
+</body>
+</html>

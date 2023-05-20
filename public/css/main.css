@@ -1,0 +1,123 @@
+body{
+    background-image: url("/public/img/SANS.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+}
+
+h1{
+    background:linear-gradient(to right, #000000, transparent);
+    color:#FFFFFF;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    font-size: 36px;
+}
+
+h2{
+    background:linear-gradient(to left, #000000, transparent);
+    color:#FFFFFF;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    font-weight: bold;
+    border-top-style: dotted;
+    border-bottom-style: double;
+    border-left-width: 10px;
+    border-left-color: silver;
+    text-align: right;
+    padding: 15px;
+}
+
+h3{
+    background:linear-gradient(to right, #000000, transparent);
+    color:#FFFFFF;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    font-size: 24px;
+}
+
+h4{
+    background:linear-gradient(to right, #000000, transparent);
+    color:#FFFFFF;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    font-size: 36px;
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+}
+
+p{
+    background: #000000;
+    color:#00FF73;
+    font-family: "consolas", sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 14px;
+    border-top-style: dotted;
+    border-style:solid;
+    border-color: gold;
+    border-radius: 5px;
+    padding: 15px;
+}
+
+table{
+    background: #000000;
+    color:#FFFFFF;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+    width: 800;
+    border-collapse: collapse;
+    border-top-style: dotted;
+    border-bottom-style: double;
+    border-color: silver;
+    border-radius: 10px;
+    width: 100%;
+    padding: 15px;
+    text-align: center;
+}
+
+th, td{
+    background: #000000;
+    color:#FFFFFF;
+    font-family: "Press Start 2P", "consolas", sans-serif;
+    font-weight: bold;
+    font-size: 26px;
+    border-collapse: collapse;
+    border-top-style: dotted;
+    border-bottom-style: double;
+    border-color: silver;
+    border-radius: 10px;
+    text-align: center;
+}
+
+button{
+    background: #000000;
+    color:#00FF73;
+    font-family: "consolas", sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 26px;
+    width: 200;
+    border-radius: 10px;
+    border-color: gold;
+    padding: 15px;
+    margin:20px;
+    position: absolute;
+    bottom: 10%;
+    right: 40%;
+    left: 40%;
+}
+
+form{
+    background: #000000;
+    color:#00FF73;
+    font-family: "consolas", sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    font-size: 18px;
+    border-top-style: dotted;
+    border-style:solid;
+    border-color: silver;
+    border-radius: 5px;
+    padding: 15px;
+}
