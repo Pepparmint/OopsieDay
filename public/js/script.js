@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const fetchButton = document.querySelector('#fetchButton');
 
   fetchButton.addEventListener('click', fetchData);
-  addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
+  addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData); knske göra en submit btn där all data i tabell sänds till data.json idk
 
 function fetchData() {
   fetch('/data.json') // '/api/data'
@@ -87,7 +87,6 @@ function updateData(newData) {
   const existingData = JSON.parse(localStorage.getItem('data')) || [];
 
   existingData.push(newData);
-
   localStorage.setItem('data', JSON.stringify(existingData));
 }
 
