@@ -25,33 +25,33 @@
     <h3>Add your imaginary scores, Sir!</h3>
 
     <form>  <!--  ?-->
-      <div>
-        <div>
-          <label for="scoreInput">Score:</label>
-          <input type="number" id="scoreInput" name="score" placeholder="Enter Score">
-          <label for="nameInput">Name:</label>
-          <input type="text" id="nameInput" name="name" placeholder="Enter Name">
-          <label for="lastnameInput">SurName:</label>
-          <input type="text" id="lastnameInput" name="lastname" placeholder="Enter Surname">
-          <button type="submit" id="submitButton">Submit</button> <!-- !!!!!! -->
-        </div>
-      </div>
+      <tr>
+        <th><label for="inputScore">Score:</label></th>
+        <td><input type="text" id="inputScore" placeholder="Enter Score"></td>
+        <th><label for="inputName">Name:</label></th>
+        <td><input type="text" id="inputName" placeholder="Name"></td>
+        <th><label for="InputLastName">SurName:</label></th>
+        <td><input type="text" id="inputLastName" placeholder="Last Name"></td>
+        <td>
+          <button id="addButton" type="button">Submit</button>
+          <button id="fetchButton" type="button">Fetch Data</button>
+        </td>
+      </tr>
+       <div>
+          <div>
+        <table id="table">
+            <thead>
+              <h4>[>'_']></h4>
+            </thead>
+              <tbody id="tableBody">
+                <!-- stuff here -->
+              </tbody>
+          </div>
+        </div> 
+              <tfoot>
+            </tfoot>
+        </table>
     </form>
-
-    <h4>[>'_']></h4>
-    <table id="dataTable">
-        <thead>
-          <tr>
-            <th>Score</th>
-            <th>Name</th>
-            <th>Surname</th>
-          </tr>
-        </thead>
-          <tbody>
-            <!-- scöres -->
-          </tbody>
-
-     </table>
 
     </div>
     <!-- <a href="/views/about.html">About Page</a> -->
