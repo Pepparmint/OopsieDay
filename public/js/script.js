@@ -63,7 +63,7 @@ function addRow() {
     inputLastName.value = '';//Cleear
   }
 }
-
+//---------------------------------------------------------------------------------------------------------------
 function addData() { // NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE
   const scoreInput = document.querySelector('#inputScore');
   const nameInput = document.querySelector('#inputName');
@@ -78,22 +78,38 @@ function addData() { // NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT
     name: name,
     lastName: lastname
   };
+  updateData(newData);
+  saveData();
+  fetchData();
+}
+
+function updateData(newData) {
+  const existingData = JSON.parse(localStorage.getItem('data')) || [];
+
+  existingData.push(newData);
+
+  localStorage.setItem('data', JSON.stringify(existingData));
+}
+
+function saveData() {
+  const data = JSON.parse(localStorage.getItem('data')) || [];
 
   fetch('/data.json', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(newData)
+    body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .then(data => {
-      fetchData();
+    .then(data1 => {
+      console.log('Data saved successfully.');
     })
     .catch(err => {
-      console.error('Error adding data:', err);
+      console.error('Error saving data:', err);
     });
 }
+//---------------------------------------------------------------------------------------------------------------
 });
 
 
