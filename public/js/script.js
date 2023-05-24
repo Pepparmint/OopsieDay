@@ -3,8 +3,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.querySelector('#tableBody');
   const addButton = document.querySelector('#addButton');
   const fetchButton = document.querySelector('#fetchButton');
-  fetchButton.addEventListener('click', fetchData);
 
+  fetchButton.addEventListener('click', fetchData);
   addButton.addEventListener('click', addRow);
 
 function fetchData() {
@@ -20,7 +20,6 @@ function fetchData() {
 
 function renderRows(data) {
     tableBody.innerHTML = ''; // Clear
-
     data.forEach(row => {
       const tableRow = createRow(row.score, row.name, row.lastName);
       tableBody.appendChild(tableRow);
@@ -68,7 +67,7 @@ function addRow() {
 
 
 /* 
-WTF FAILURE CODE, DATA FAILURE
+WTF FAILURE CODE, EMOTIONAL DAMAAGE; STOOPID; (Steven He)
 
 lass Xcore {
   constructor(score, name, lastName) {
