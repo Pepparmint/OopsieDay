@@ -109,10 +109,8 @@ button{
     border-color: gold;
     padding: 15px;
     margin:20px;
-    position: right;
+    position: bottom;
     bottom: 10%;
-    right: 40%;
-    left: 40%;
 }
 
 form{
