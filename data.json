@@ -2,12 +2,6 @@
     {
       "score": 999,
       "name": "Sans",
-      "lastname": "Papyrus"
-    },
-    {
-      "score": 969,
-      "name": "Mr",
-      "lastname": "Anderson"
+      "lastName": "Papyrus"
     }
 ]
-  

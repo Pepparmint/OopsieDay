@@ -5,10 +5,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const fetchButton = document.querySelector('#fetchButton');
 
   fetchButton.addEventListener('click', fetchData);
-  addButton.addEventListener('click', addRow);
+  addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
 
 function fetchData() {
-  fetch('/api/data')
+  fetch('/data.json') // '/api/data'
     .then(response => response.json())
     .then(data => {
       renderRows(data);
@@ -19,7 +19,7 @@ function fetchData() {
 }
 
 function renderRows(data) {
-    tableBody.innerHTML = ''; // Clear
+    tableBody.innerHTML = ''; //clear
     data.forEach(row => {
       const tableRow = createRow(row.score, row.name, row.lastName);
       tableBody.appendChild(tableRow);
@@ -60,14 +60,64 @@ function addRow() {
 
     inputScore.value = '';
     inputName.value = '';
-    inputLastName.value = '';// Cleear
+    inputLastName.value = '';//Cleear
   }
+}
+
+function addData() { // NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE
+  const scoreInput = document.querySelector('#inputScore');
+  const nameInput = document.querySelector('#inputName');
+  const lastnameInput = document.querySelector('#inputLastName');
+
+  const score = scoreInput.value;
+  const name = nameInput.value;
+  const lastname = lastnameInput.value;
+
+  const newData = {
+    score: score,
+    name: name,
+    lastName: lastname
+  };
+
+  fetch('/data.json', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newData)
+  })
+    .then(response => response.json())
+    .then(data => {
+      fetchData();
+    })
+    .catch(err => {
+      console.error('Error adding data:', err);
+    });
 }
 });
 
 
-/* 
-WTF FAILURE CODE, EMOTIONAL DAMAAGE; STOOPID; (Steven He)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*  -----------------------------------------------------------------------------------------------------------------------------------------
+I CANT CODE, EMOTIONAL DAMAAGE; STOOPID- (Steven He)
 
 lass Xcore {
   constructor(score, name, lastName) {
@@ -79,7 +129,6 @@ lass Xcore {
       return `${this.score} ${this.name} ${this.lastName}`;
   }
 }
-//-----------------------------------------
 
 let data = [];
 
@@ -108,31 +157,7 @@ function scoreToTable() {
     });
     document.getElementById("tBody").innerHTML = scores + "</table>";
 }
-*/
-
-/*
-const score = document.getElementById('scoreInput');
-const name = document.getElementById('nameInput');
-const lastname = document.getElementById('lastNameInput');
-*/
-
-
-/*
-fetch("savedScores.json").then(function(response){
-  return response.json();
-})
-.then(function(savedScores){
-  let placeholder = document.querySelector("#scoreTableBody");
-  let out = "";
-  for(let product of savedScores){
-    out +=`<tr>
-              <td><${product.score}></td>
-              <td>${product.name}</td>
-              <td>${product.lastName}</td>
-            </tr>`;
-  }
-})
-
+----------------------------------------------------------------------------------------------------------------------------------
 /*document.addEventListener('DOMContentLoaded', () => {
   const submitButton = document.getElementById('submitButton');
 
@@ -191,6 +216,4 @@ document.querySelector('form').addEventListener('submit', (event) => {
         });
       });
 });
-
-WTF FAILURE CODE
 */
