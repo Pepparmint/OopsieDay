@@ -129,7 +129,7 @@ async function submitData() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data, null, 2) // <--
     });
 
     if (response.ok) {
