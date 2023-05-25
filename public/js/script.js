@@ -1,11 +1,14 @@
 //SCORESNAMNDATA
+
 window.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.querySelector('#tableBody');
   const addButton = document.querySelector('#addButton');
   const fetchButton = document.querySelector('#fetchButton');
+  const submitButton = document.getElementById('submitButton');
 
   fetchButton.addEventListener('click', fetchData);
-  addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData); knske göra en submit btn där all data i tabell sänds till data.json idk
+  addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
+  submitButton.addEventListener('click', submitData); // submitData
 
 function fetchData() {
   fetch('/data.json') // '/api/data'
@@ -64,75 +67,105 @@ function addRow() {
   }
 }
 //---------------------------------------------------------------------------------------------------------------
-function addData() { // NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE
-  const scoreInput = document.querySelector('#inputScore');
-  const nameInput = document.querySelector('#inputName');
-  const lastnameInput = document.querySelector('#inputLastName');
+// NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE
 
-  const score = scoreInput.value;
-  const name = nameInput.value;
-  const lastname = lastnameInput.value;
+/*function addExistingDataToTable() {
+  const table = document.getElementById('table');
+  const existingData = getDataFromLocalStorage();
 
-  const newData =[
-    {
-      score: score,
-      name: name,
-      lastName: lastname
-    }
-  ];
-  updateData(newData);
-  saveData();
-  // addRow(); 
-
-  fetchData();
+  existingData.forEach((row) => {
+    const newRow = table.insertRow();
+    newRow.insertCell().textContent = row.score;
+    newRow.insertCell().textContent = row.name;
+    newRow.insertCell().textContent = row.lastName;
+  });
 }
 
-function updateData(newData) {
+function getDataFromLocalStorage() {
+  const data = JSON.parse(localStorage.getItem('data')) || [];
+  return data;
+} */
+
+async function submitData() {
+
+    var score = document.getElementById('inputScore').value;
+    var fname = document.getElementById('inputName').value;
+    var lname= document.getElementById('inputLastName').value;
+
+    alert("WORK PLS")
+/*/
+    var data = {
+      score: score,
+      name: fname,
+      lastName: lname
+    }
+/*/
+    var data = [];
+    data.push(score);
+    data.push(fname);
+    data.push(lname);
+
+    var data_string = JSON.stringify(data, null, 2);
+
+    var file = new Blob([data_string],{type:"text"});
+    var anchor = document.createElement('a');
+    anchor.href = URL.createObjectURL(file);
+    anchor.download = "HEJ.TXT"; 
+    anchor.click();
+    
+  };
+
+    /*
+    const subData = [];
+
+    const addData = (ev) =>{
+      ev.preventDefault();
+      const newData = {
+      score: document.getElementById('inputScore').value,
+      name: document.getElementById('inputName').value,
+      lastName: document.getElementById('inputLastName').value
+    }
+    subData.push(newData);
+    document.table[0].reset();
+
+    console.warn('added', {subData});
+    let pre = document.querySelector('');
+    pre.textContent = '\n' + JSON.stringify(subData, '\t', 2);
+    }
+  });*/
+
+  /*
+    tableBody.addEventListener('submit', event => {
+      event.preventDefault();
+    })
+      const tableData = new tableData(tableBody);
+      const data = Object.fromEntries(tableData);
+
+      await fetch('/data.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' // x-www-form-urlencoded ??? 
+        },
+        body: JSON.stringify(data)
+         }).then(res => res.json())
+            .then(data => console.log(data))
+            .catch(error => console.log(error));
+    // addExistingDataToTable();
+  } */
+});
+
+
+
+/*
+function updateData(rowData) {
   const existingData = JSON.parse(localStorage.getItem('data')) || [];
 
-  existingData.push(newData);
+  existingData.push(rowData);
   localStorage.setItem('data', JSON.stringify(existingData));
   // return updateData;
 }
-
-function saveData() {
-  const data = JSON.parse(localStorage.getItem('data')) || [];
-
-  fetch('/data.json', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Data saved successfully.');
-    })
-    .catch(err => {
-      console.error('Error saving data:', err);
-    });
-    /*
-      const data = updateData();
-
-      fetch('/data.json', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
-      })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Data saved successfully:', data);
-      })
-      .catch(err => {
-        console.error('Error saving data:', err);
-      });
-      */
-}
+*/
 //---------------------------------------------------------------------------------------------------------------
-});
 
 
 
@@ -253,5 +286,4 @@ document.querySelector('form').addEventListener('submit', (event) => {
           tableBody.appendChild(row);
         });
       });
-});
-*/
+});*//////

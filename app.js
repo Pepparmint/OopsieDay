@@ -32,36 +32,31 @@ app.get('/data.json', (req, res) => { //hämta
     });
 });
 
-app.post('/data.json', (req, res) => { // NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE
-  const newData = req.body;
-
-  const dataFilePath = path.join(__dirname, 'data.json');
-
-  fs.readFile(dataFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading data file:', err);
-      res.status(500).json({ error: 'Failed to add data' });
-      return;
+app.post('/data.json', (req, res) => { // NOT IN USE// NOT WÖRKING AS PROPERLY // NOT IN USE// NOT IN USE// NOT IN USE
+  submitData();
+    try {
+      const dataFile = fs.readFileSync('data.json'); // ./data.json //'utf8'
+      existingData = JSON.parse(dataFile); 
+    } catch (err) {
+      console.error('Error reading existing data:', err);
     }
 
-    try {
-      const tableData = JSON.parse(data);
-      tableData.push(newData);
+  existingData.push(newData);
 
-      fs.writeFile(dataFilePath, JSON.stringify(tableData), 'utf8', err => {
-        if (err) {
-          console.error('Error writing to data file:', err);
-          res.status(500).json({ error: 'Failed to add data' });
-          return;
-        }
+  alert(existingData);
 
-        res.json({ success: true });
-      });
-    } catch (parseErr) {
-      console.error('Error parsing JSON:', parseErr);
-      res.status(500).json({ error: 'Failed to add data' });
+  const jsonData = JSON.stringify(existingData, null, 2);
+
+  fs.writeFileSync('data.json', jsonData, 'utf8', (err) => {
+    if (err) {
+      console.error('Error writing to file:', err);
+      res.status(500).json({ error: 'Failed to save data' });
+    } else {
+      console.log('Data saved to data.json file.');
+      res.json({ message: 'Data saved successfully' });
     }
   });
+});
   /*
   let existingData = [];
   try {
@@ -84,6 +79,5 @@ app.post('/data.json', (req, res) => { // NOT IN USE// NOT IN USE// NOT IN USE//
       res.json({ message: 'Data saved successfully' });
     }
   });*/
-});
 
 app.listen(port, ()=> console.info(`Listening on port ${port}`));
