@@ -112,7 +112,7 @@ function getDataTable() {
     const rowData = {
       score: score,
       name: name,
-      lastname: lastname
+      lastName: lastname
     };
 
     data.push(rowData);
