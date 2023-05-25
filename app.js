@@ -71,13 +71,10 @@ app.post('/data.json', (req, res) => { // NOT IN USE// NOT IN USE// NOT IN USE//
     console.error('Error reading data file:', err);
   }
 
-  // Add the new data to the existing data
   existingData.push(newData);
 
-  // Convert the data to JSON string
   const jsonData = JSON.stringify(existingData, null, 2);
 
-  // Write the JSON data back to the file
   fs.writeFile('data.json', jsonData, 'utf8', (err) => {
     if (err) {
       console.error('Error writing to file:', err);
