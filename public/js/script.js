@@ -22,11 +22,11 @@ function fetchData() {
 }
 
 function renderRows(data) {
-    tableBody.innerHTML = ''; //clear
-    data.forEach(row => {
-      const tableRow = createRow(row.score, row.name, row.lastName);
-      tableBody.appendChild(tableRow);
-    });
+  tableBody.innerHTML = ''; //clear
+  data.forEach(row => {
+    const tableRow = createRow(row.score, row.name, row.lastName);
+    tableBody.appendChild(tableRow);
+  });
 }
 
 function createRow(score, name, lastName) {
@@ -66,10 +66,10 @@ function addRow() {
     inputLastName.value = '';//Cleear
   }
 }
-//---------------------------------------------------------------------------------------------------------------
-// NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE
-
+//---------------------------------------------------------------------------------
 /*
+// spara inputvärden i textfil...
+
 async function submitData() {
 
     var score = document.getElementById('inputScore').value;
@@ -88,11 +88,14 @@ async function submitData() {
     var file = new Blob([data_string],{type:"text"});
     var anchor = document.createElement('a');
     anchor.href = URL.createObjectURL(file);
-    anchor.download = "HEJ.TXT"; 
+    anchor.download = "urScores.TXT"; 
     anchor.click();
     
   };
-});*/
+});
+----------------------------------------------------------------------------------
+*/
+
 
 function getDataTable() {
   const table = document.getElementById('table');
@@ -114,7 +117,6 @@ function getDataTable() {
 
     data.push(rowData);
   }
-
   return data;
 }
 
@@ -138,8 +140,9 @@ async function submitData() {
   } catch (err) {
     console.error('Error submitting data:', err);
   }
+  getDataTable();
 }
-getDataTable();
+//gDT <
 });
 //---------------------------------------------------------------------------------------------------------------
 
