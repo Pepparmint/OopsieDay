@@ -73,13 +73,17 @@ function addData() { // NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT
   const name = nameInput.value;
   const lastname = lastnameInput.value;
 
-  const newData = {
-    score: score,
-    name: name,
-    lastName: lastname
-  };
+  const newData =[
+    {
+      score: score,
+      name: name,
+      lastName: lastname
+    }
+  ];
   updateData(newData);
   saveData();
+  // addRow(); 
+
   fetchData();
 }
 
@@ -88,6 +92,7 @@ function updateData(newData) {
 
   existingData.push(newData);
   localStorage.setItem('data', JSON.stringify(existingData));
+  // return updateData;
 }
 
 function saveData() {
@@ -101,12 +106,30 @@ function saveData() {
     body: JSON.stringify(data)
   })
     .then(response => response.json())
-    .then(data1 => {
+    .then(data => {
       console.log('Data saved successfully.');
     })
     .catch(err => {
       console.error('Error saving data:', err);
     });
+    /*
+      const data = updateData();
+
+      fetch('/data.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Data saved successfully:', data);
+      })
+      .catch(err => {
+        console.error('Error saving data:', err);
+      });
+      */
 }
 //---------------------------------------------------------------------------------------------------------------
 });

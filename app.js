@@ -5,6 +5,7 @@ const path = require('path');
 const app = express();
 const port = 8080;
 
+app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
@@ -14,7 +15,7 @@ app.get('/', (req, res) => {
 app.get('/data.json', (req, res) => { //hämta
   const dataFilePath = path.join(__dirname, 'data.json');
 
-  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+  fs.readFile(dataFilePath, 'utf8', (err, data) => { //SYNC
       if (err) {
         console.error('Error reading data file:', err);
         res.status(500).json({ error: 'Failed to fetch data' });
@@ -61,6 +62,31 @@ app.post('/data.json', (req, res) => { // NOT IN USE// NOT IN USE// NOT IN USE//
       res.status(500).json({ error: 'Failed to add data' });
     }
   });
+  /*
+  let existingData = [];
+  try {
+    const dataFile = fs.readFileSync('data.json', 'utf8');
+    existingData = JSON.parse(dataFile);
+  } catch (err) {
+    console.error('Error reading data file:', err);
+  }
+
+  // Add the new data to the existing data
+  existingData.push(newData);
+
+  // Convert the data to JSON string
+  const jsonData = JSON.stringify(existingData, null, 2);
+
+  // Write the JSON data back to the file
+  fs.writeFile('data.json', jsonData, 'utf8', (err) => {
+    if (err) {
+      console.error('Error writing to file:', err);
+      res.status(500).json({ error: 'Failed to save data' });
+    } else {
+      console.log('Data saved to data.json file.');
+      res.json({ message: 'Data saved successfully' });
+    }
+  });*/
 });
 
 app.listen(port, ()=> console.info(`Listening on port ${port}`));
