@@ -33,51 +33,26 @@ app.get('/data.json', (req, res) => { //hämta
 });
 
 app.post('/data.json', (req, res) => { // NOT IN USE// NOT WÖRKING AS PROPERLY // NOT IN USE// NOT IN USE// NOT IN USE
-  submitData();
+    const newData = req.body;
+  
+    let existingData = [];
     try {
-      const dataFile = fs.readFileSync('data.json'); // ./data.json //'utf8'
-      existingData = JSON.parse(dataFile); 
+      const dataFile = fs.readFileSync('/data.json');
+      existingData = JSON.parse(dataFile);
     } catch (err) {
       console.error('Error reading existing data:', err);
     }
-
-  existingData.push(newData);
-
-  alert(existingData);
-
-  const jsonData = JSON.stringify(existingData, null, 2);
-
-  fs.writeFileSync('data.json', jsonData, 'utf8', (err) => {
-    if (err) {
-      console.error('Error writing to file:', err);
-      res.status(500).json({ error: 'Failed to save data' });
-    } else {
-      console.log('Data saved to data.json file.');
-      res.json({ message: 'Data saved successfully' });
+  
+    existingData.push(newData);
+  
+    try {
+      fs.writeFileSync('/data.json', JSON.stringify(existingData));
+      console.log('Data saved successfully.');
+      res.json({ message: 'Data saved successfully.' });
+    } catch (err) {
+      console.error('Error saving data:', err);
+      res.status(500).json({ error: 'Error saving data.' });
     }
-  });
 });
-  /*
-  let existingData = [];
-  try {
-    const dataFile = fs.readFileSync('data.json', 'utf8');
-    existingData = JSON.parse(dataFile);
-  } catch (err) {
-    console.error('Error reading data file:', err);
-  }
-
-  existingData.push(newData);
-
-  const jsonData = JSON.stringify(existingData, null, 2);
-
-  fs.writeFile('data.json', jsonData, 'utf8', (err) => {
-    if (err) {
-      console.error('Error writing to file:', err);
-      res.status(500).json({ error: 'Failed to save data' });
-    } else {
-      console.log('Data saved to data.json file.');
-      res.json({ message: 'Data saved successfully' });
-    }
-  });*/
 
 app.listen(port, ()=> console.info(`Listening on port ${port}`));

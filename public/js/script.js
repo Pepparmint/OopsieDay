@@ -69,23 +69,7 @@ function addRow() {
 //---------------------------------------------------------------------------------------------------------------
 // NOT IN USE // NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE// NOT IN USE
 
-/*function addExistingDataToTable() {
-  const table = document.getElementById('table');
-  const existingData = getDataFromLocalStorage();
-
-  existingData.forEach((row) => {
-    const newRow = table.insertRow();
-    newRow.insertCell().textContent = row.score;
-    newRow.insertCell().textContent = row.name;
-    newRow.insertCell().textContent = row.lastName;
-  });
-}
-
-function getDataFromLocalStorage() {
-  const data = JSON.parse(localStorage.getItem('data')) || [];
-  return data;
-} */
-
+/*
 async function submitData() {
 
     var score = document.getElementById('inputScore').value;
@@ -93,13 +77,7 @@ async function submitData() {
     var lname= document.getElementById('inputLastName').value;
 
     alert("WORK PLS")
-/*/
-    var data = {
-      score: score,
-      name: fname,
-      lastName: lname
-    }
-/*/
+
     var data = [];
     data.push(score);
     data.push(fname);
@@ -114,57 +92,55 @@ async function submitData() {
     anchor.click();
     
   };
+});*/
 
-    /*
-    const subData = [];
+function getDataTable() {
+  const table = document.getElementById('table');
+  const tbody = table.querySelector('tbody');
+  const rows = tbody.getElementsByTagName('tr');
+  const data = [];
 
-    const addData = (ev) =>{
-      ev.preventDefault();
-      const newData = {
-      score: document.getElementById('inputScore').value,
-      name: document.getElementById('inputName').value,
-      lastName: document.getElementById('inputLastName').value
-    }
-    subData.push(newData);
-    document.table[0].reset();
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const score = row.cells[0].innerText;
+    const name = row.cells[1].innerText;
+    const lastname = row.cells[2].innerText;
 
-    console.warn('added', {subData});
-    let pre = document.querySelector('');
-    pre.textContent = '\n' + JSON.stringify(subData, '\t', 2);
-    }
-  });*/
+    const rowData = {
+      score: score,
+      name: name,
+      lastname: lastname
+    };
 
-  /*
-    tableBody.addEventListener('submit', event => {
-      event.preventDefault();
-    })
-      const tableData = new tableData(tableBody);
-      const data = Object.fromEntries(tableData);
+    data.push(rowData);
+  }
 
-      await fetch('/data.json', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json' // x-www-form-urlencoded ??? 
-        },
-        body: JSON.stringify(data)
-         }).then(res => res.json())
-            .then(data => console.log(data))
-            .catch(error => console.log(error));
-    // addExistingDataToTable();
-  } */
-});
-
-
-
-/*
-function updateData(rowData) {
-  const existingData = JSON.parse(localStorage.getItem('data')) || [];
-
-  existingData.push(rowData);
-  localStorage.setItem('data', JSON.stringify(existingData));
-  // return updateData;
+  return data;
 }
-*/
+
+async function submitData() {
+  try {
+    const data = getDataTable();
+
+    const response = await fetch('/data.json', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+
+    if (response.ok) {
+      console.log('Data submitted successfully.');
+    } else {
+      throw new Error('Error submitting data. Server responded with status: ' + response.status);
+    }
+  } catch (err) {
+    console.error('Error submitting data:', err);
+  }
+}
+getDataTable();
+});
 //---------------------------------------------------------------------------------------------------------------
 
 
@@ -259,7 +235,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
   document.getElementById('lastname').value = '';
 });
 
-    fetch('/submit', {
+    fetch('/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
@@ -272,7 +248,7 @@ document.querySelector('form').addEventListener('submit', (event) => {
       }
     });
   });
-    fetch('/data')
+    fetch('/')
       .then(response => response.json())
       .then(data => {
         const tableBody = document.querySelector('#dataTable tbody');
