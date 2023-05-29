@@ -32,12 +32,13 @@ app.get('/data.json', (req, res) => { //hämta
     });
 });
 
-app.post('/data.json', (req, res) => { // NOT IN USE// NOT WÖRKING AS PROPERLY // NOT IN USE// NOT IN USE// NOT IN USE
+// NOT IN USE// NOT WÖRKING AS PROPERLY // NOT IN USE// NOT IN USE// NOT IN USE
+app.post('/data.json', (req, res) => {
     const newData = req.body;
   
     let existingData = [];
     try {
-      const dataFile = fs.readFileSync('/data.json');
+      const dataFile = fs.readFileSync('data.json');
       existingData = JSON.parse(dataFile);
     } catch (err) {
       console.error('Error reading existing data:', err);
@@ -46,7 +47,7 @@ app.post('/data.json', (req, res) => { // NOT IN USE// NOT WÖRKING AS PROPERLY 
     existingData.push(newData);
   
     try {
-      fs.writeFileSync('/data.json', JSON.stringify(existingData));
+      fs.writeFileSync('data.json', JSON.stringify(existingData));
       console.log('Data saved successfully.');
       res.json({ message: 'Data saved successfully.' });
     } catch (err) {
