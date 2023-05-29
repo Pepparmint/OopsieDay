@@ -114,28 +114,65 @@ function getDataTable() {
       name: name,
       lastName: lastname
     };
-
     data.push(rowData);
   }
   return data;
 }
 
+function saveData(data) {
+  const jsonData = JSON.stringify(data);
+
+  fetch('/data.json', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json' // x-www-form-urlencoded
+    },
+    body: jsonData
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log('Data saved successfully:', result);
+    })
+    .catch(err => {
+      console.error('Error saving data:', err);
+    });
+}
+
 async function submitData() {
   try {
-    const data = getDataTable();
+    const scoreInput = document.getElementById('inputScore');
+    const nameInput = document.getElementById('inputName');
+    const lastNameInput = document.getElementById('inputLastName');
 
-    const response = await fetch('/data.json', { // /data.json
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json' // application/json OR application/x-www-form-urlencoded ? 
-      },
-      body: JSON.stringify(data) // , null, 2 <--
-    });
+    const score = scoreInput.value;
+    const name = nameInput.value;
+    const lastName = lastNameInput.value;
 
-    if (response.ok) {
-      console.log('Data submitted successfully.');
-    } else {
-      throw new Error('Error submitting data. Server responded with status: ' + response.status);
+    if (score && name && lastName) {
+      const data = getDataTable();
+
+      const newData = {
+        score: score,
+        name: name,
+        lastName: lastName
+      };
+
+      data.push(newData);
+
+      const response = await fetch('/data.json', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json' //x-www-form-urlencoded
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        console.log('Data submitted successfully.');
+        saveData(data);
+      } else {
+        throw new Error('Error submitting data. Server responded with status: ' + response.status);
+      }
     }
   } catch (err) {
     console.error('Error submitting data:', err);

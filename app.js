@@ -8,6 +8,8 @@ const port = 8080;
 app.use(express.json());
 app.use(express.static('public'));
 
+const dataFilePath = path.join(__dirname, 'data.json');
+
 /*
 import express, { json, static } from 'express';
 import { readFile, readFileSync, writeFileSync } from 'fs';
@@ -24,7 +26,6 @@ app.get('/', (req, res) => {
 });
 
 app.get('/data.json', (req, res) => { //hämta
-  const dataFilePath = path.join(__dirname, 'data.json');
 
   fs.readFile(dataFilePath, 'utf8', (err, data) => { //SYNC
       if (err) {
@@ -58,7 +59,7 @@ app.post('/data.json', (req, res) => {
     existingData.push(newData);
   
     try {
-      fs.writeFileSync('data.json', JSON.stringify(existingData));
+      fs.writeFileSync('data.json', JSON.stringify(existingData)); // writeFile  utf-8
       console.log('Data saved successfully.');
       res.json({ message: 'Data saved successfully.' });
     } catch (err) {
