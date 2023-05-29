@@ -8,6 +8,17 @@ const port = 8080;
 app.use(express.json());
 app.use(express.static('public'));
 
+/*
+import express, { json, static } from 'express';
+import { readFile, readFileSync, writeFileSync } from 'fs';
+import { join } from 'path';
+const app = express();
+const port = 8080;
+
+app.use(json());
+app.use(static('public'));
+*/
+
 app.get('/', (req, res) => {
   res.sendFile('index.html', { root: __dirname });
 });

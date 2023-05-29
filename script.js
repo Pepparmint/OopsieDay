@@ -8,7 +8,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
   fetchButton.addEventListener('click', fetchData);
   addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
-  submitButton.addEventListener('click', submitData); // submitData
+  submitButton.addEventListener('click', submitData);
+  // submitButton.onclick = submitData;
 
 function fetchData() {
   fetch('/data.json')
@@ -126,7 +127,7 @@ async function submitData() {
     const response = await fetch('/data.json', { // /data.json
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json' //application/jason or x-form-wwwblabla
+        'Content-Type': 'application/json' // application/json OR application/x-www-form-urlencoded ? 
       },
       body: JSON.stringify(data) // , null, 2 <--
     });
