@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   fetchButton.addEventListener('click', fetchData);
   addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
-  submitButton.addEventListener('click', submitData);
+  submitButton.addEventListener('click', submitData); // submitData()
   // submitButton.onclick = submitData;
 
 function fetchData() {
@@ -143,6 +143,7 @@ async function submitData() {
   getDataTable();
 }
 });
+
 /* ---------------------------------------------------------------------------------------------------------------
 
 class Xcore {
