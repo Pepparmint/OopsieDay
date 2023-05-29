@@ -64,7 +64,7 @@ function addRow() {
 
     inputScore.value = '';
     inputName.value = '';
-    inputLastName.value = '';//Cleear
+    inputLastName.value = '';
   }
 }
 //---------------------------------------------------------------------------------
