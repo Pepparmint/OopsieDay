@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', submitData); // submitData
 
 function fetchData() {
-  fetch('/data.json') // '/api/data'  /data.json
+  fetch('/data.json')
     .then(response => response.json())
     .then(data => {
       renderRows(data);
@@ -96,7 +96,6 @@ async function submitData() {
 ----------------------------------------------------------------------------------
 */
 
-
 function getDataTable() {
   const table = document.getElementById('table');
   const tbody = table.querySelector('tbody');
@@ -127,7 +126,7 @@ async function submitData() {
     const response = await fetch('/data.json', { // /data.json
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json' //application/jason or x-form-wwwblabla
       },
       body: JSON.stringify(data) // , null, 2 <--
     });
@@ -142,29 +141,23 @@ async function submitData() {
   }
   getDataTable();
 }
-//gDT <
 });
-//---------------------------------------------------------------------------------------------------------------
+/* ---------------------------------------------------------------------------------------------------------------
 
+class Xcore {
+  constructor(score, name, lastName) {
+    this.score = score;
+    this.name = name;
+    this.lastName = lastName;
+  }
+}
 
+const rowData = new Xcore(score, name, lastname);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+data.push(rowData);
+}
+return data;
+}
 
 /*  -----------------------------------------------------------------------------------------------------------------------------------------
 I CANT CODE, EMOTIONAL DAMAAGE; STOOPID- (Steven He)
