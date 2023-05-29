@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
-  res.sendFile('views/index.html', { root: __dirname });
+  res.sendFile('index.html', { root: __dirname });
 });
 
 app.get('/data.json', (req, res) => { //hämta

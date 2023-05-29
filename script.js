@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', submitData); // submitData
 
 function fetchData() {
-  fetch('/data.json') // '/api/data'
+  fetch('/data.json') // '/api/data'  /data.json
     .then(response => response.json())
     .then(data => {
       renderRows(data);
@@ -124,7 +124,7 @@ async function submitData() {
   try {
     const data = getDataTable();
 
-    const response = await fetch('/data.json', {
+    const response = await fetch('/data.json', { // /data.json
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
