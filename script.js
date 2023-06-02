@@ -7,8 +7,8 @@ window.addEventListener('DOMContentLoaded', () => {
   const submitButton = document.getElementById('submitButton');
 
   fetchButton.addEventListener('click', fetchData);
-  addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
-  submitButton.addEventListener('click', submitData()); // submitData()
+  addButton.addEventListener('click', addRow);
+  submitButton.addEventListener('click', newTable);
 
 function fetchData() { 
   fetch('/data.json')
@@ -67,74 +67,75 @@ function addRow() {
   }
 }
 
+function getDataTable() {
+  const table = document.getElementById('table');
+  const tbody = table.querySelector('tbody');
+  const rows = tbody.getElementsByTagName('tr');
+  const data = [];
+
+  for (let i = 0; i < rows.length; i++) {
+    const row = rows[i];
+    const score = row.cells[0].innerText;
+    const name = row.cells[1].innerText;
+    const lastName = row.cells[2].innerText;
+
+    const rowData = {
+      score: score,
+      name: name,
+      lastName: lastName
+    };
+
+    data.push(rowData);
+  }
+
+  return data;
+}
+
+function newTable() {
+  const data = getDataTable();
+
+  fetch('/data.json', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+    .then(response => response.json())
+    .then(result => {
+      console.log('Data submitted successfully:', result);
+      renderRows(data);
+    })
+    .catch(err => {
+      console.error('Error submitting data:', err);
+    });
+}
+});
+
 /*
 ----------------------------------------------------------------------------------
 // spara inputvärden i textfil...
 
 async function submitData() {
+  var score = document.getElementById('inputScore').value;
+  var fname = document.getElementById('inputName').value;
+  var lname= document.getElementById('inputLastName').value;
 
-    var score = document.getElementById('inputScore').value;
-    var fname = document.getElementById('inputName').value;
-    var lname= document.getElementById('inputLastName').value;
+  alert("WORK PLS")
 
-    alert("WORK PLS")
+  var data = [];
+  data.push(score);
+  data.push(fname);
+  data.push(lname);
 
-    var data = [];
-    data.push(score);
-    data.push(fname);
-    data.push(lname);
+  var data_string = JSON.stringify(data, null, 2);
 
-    var data_string = JSON.stringify(data, null, 2);
-
-    var file = new Blob([data_string],{type:"text"});
-    var anchor = document.createElement('a');
-    anchor.href = URL.createObjectURL(file);
-    anchor.download = "urScores.TXT"; 
-    anchor.click();
-    
+  var file = new Blob([data_string],{type:"text"});
+  var anchor = document.createElement('a');
+  anchor.href = URL.createObjectURL(file);
+  anchor.download = "urScores.TXT"; 
+  anchor.click();
   };
 });
 ----------------------------------------------------------------------------------
 */
-
-async function submitData() {
-  try {
-    const response = await fetch('/data.json');
-    const data = await response.json();
-    renderRows(data);
-
-    const scoreInput = document.querySelector('#inputScore');
-    const nameInput = document.querySelector('#inputName');
-    const lastNameInput = document.querySelector('#inputLastName');
-
-    const score = scoreInput.value;
-    const name = nameInput.value;
-    const lastName = lastNameInput.value;
-
-    if (score && name && lastName) {
-      const newData = {
-        score: score,
-        name: name,
-        lastName: lastName
-      };
-
-      const response = await fetch('/data.json', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(newData)
-      });
-
-      if (response.ok) {
-        console.log('Data submitted successfully.');
-        fetchData();
-      } else {
-        throw new Error('Error submitting data. Server responded with status: ' + response.status);
-      }
-    }
-  } catch (err) {
-    console.error('Error submitting data:', err);
-  }
-}
-});

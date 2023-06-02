@@ -1,10 +1,3 @@
-// import
-/*
-import express from 'express';
-import fs from 'fs';
-import path from 'path';
-*/
-
 const express = require('express'); // Uncaught ReferenceError: require is not defined ??? 
 const fs = require('fs');
 const path = require('path');
@@ -18,11 +11,11 @@ app.use(express.urlencoded({ extended: true}));
 
 const dataFilePath = path.join(__dirname, 'data.json');
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/data.json', (req, res) => {
+app.get('/', (_req, res) => {
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -41,34 +34,33 @@ app.get('/data.json', (req, res) => {
 });
 
 // NOT WÖRKING PROPERLY
-app.post('/data.json', (req, res) => {
+app.post('/', (req, res) => {
   const newData = req.body;
 
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
-      console.error('Error reading data file:', err);
+      console.error('Error reading existing data:', err);
       res.status(500).json({ error: 'Error saving data' });
       return;
     }
 
-    try {
-      const existingData = JSON.parse(data);
-      existingData.push(newData);
-      const updatedData = JSON.stringify(existingData);
-
-      fs.writeFile(dataFilePath, updatedData, 'utf8', (writeErr) => {
-        if (writeErr) {
-          console.error('Error writing data file:', writeErr);
-          res.status(500).json({ error: 'Error saving data' });
-        } else {
-          console.log('Data saved successfully.');
-          res.json({ message: 'Data saved successfully.' });
-        }
-      });
-    } catch (parseErr) {
-      console.error('Error parsing JSON:', parseErr);
-      res.status(500).json({ error: 'Error saving data' });
+    let existingData = [];
+    if (data) {
+      existingData = JSON.parse(data);
     }
+
+    existingData.push(newData);
+
+    fs.writeFile(dataFilePath, JSON.stringify(existingData), (err) => {
+      if (err) {
+        console.error('Error saving data:', err);
+        res.status(500).json({ error: 'Error saving data' });
+        return;
+      }
+
+      console.log('Data saved successfully.');
+      res.json({ message: 'Data saved successfully.' });
+    });
   });
 });
 
