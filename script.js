@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', newTable);
 
 function fetchData() { 
-  fetch('/data.json')
+  fetch('data.json')
     .then(response => response.json())
     .then(data => {
       renderRows(data);
@@ -94,7 +94,7 @@ function getDataTable() {
 function newTable() {
   const data = getDataTable();
 
-  fetch('/data.json', {
+  fetch('data.json', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
