@@ -2,12 +2,11 @@
 
 window.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.querySelector('#tableBody');
-  const addButton = document.querySelector('#addButton');
   const fetchButton = document.querySelector('#fetchButton');
   const submitButton = document.getElementById('submitButton');
 
   fetchButton.addEventListener('click', fetchData);
-  submitButton.addEventListener('click', addRow, newTable);
+  submitButton.addEventListener('click', addRow, newTable); // submitData
 
 function fetchData() { 
   fetch('data.json')
@@ -93,7 +92,7 @@ function getDataTable() {
 function newTable() {
   const data = getDataTable();
 
-  fetch('data.json', {
+  fetch('data.json', { // what to wriiight skriva skriva
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -112,7 +111,7 @@ function newTable() {
 
 /*
 ----------------------------------------------------------------------------------
-// spara inputvärden i textfil...
+// Sparar inputvärden till textfil :D 
 
 async function submitData() {
   var score = document.getElementById('inputScore').value;

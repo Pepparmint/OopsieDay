@@ -15,25 +15,7 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/', (_req, res) => { // /data.json
-  fs.readFile(dataFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading data file:', err);
-      res.status(500).json({ error: 'Failed to fetch data' });
-      return;
-    }
-
-    try {
-      const tableData = JSON.parse(data);
-      res.json(tableData);
-    } catch (parseErr) {
-      console.error('Error parsing JSON:', parseErr);
-      res.status(500).json({ error: 'Failed to fetch data' });
-    }
-  });
-});
-
-// NOT WÖRKING PROPERLY
+// NOT WÖRKING PROPERLY, TINKERING ABOUT
 app.post('/', (req, res) => { // /data.json
   const newData = req.body;
 
@@ -51,7 +33,7 @@ app.post('/', (req, res) => { // /data.json
 
     existingData.push(newData);
 
-    fs.writeFile(dataFilePath, JSON.stringify(existingData), (err) => {
+    fs.writeFile(dataFilePath, JSON.stringify(existingData), 'utf8', (err) => {
       if (err) {
         console.error('Error saving data:', err);
         res.status(500).json({ error: 'Error saving data' });
@@ -61,6 +43,24 @@ app.post('/', (req, res) => { // /data.json
       console.log('Data saved successfully.');
       res.json({ message: 'Data saved successfully.' });
     });
+  });
+});
+
+app.get('/', (_req, res) => { // /data.json
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading data file:', err);
+      res.status(500).json({ error: 'Failed to fetch data' });
+      return;
+    }
+
+    try {
+      const tableData = JSON.parse(data);
+      res.json(tableData);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+      res.status(500).json({ error: 'Failed to fetch data' });
+    }
   });
 });
 
