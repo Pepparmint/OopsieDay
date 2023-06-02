@@ -9,9 +9,8 @@ window.addEventListener('DOMContentLoaded', () => {
   fetchButton.addEventListener('click', fetchData);
   addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
   submitButton.addEventListener('click', submitData); // submitData()
-  // submitButton.onclick = submitData;
 
-function fetchData() {
+function fetchData() { 
   fetch('/data.json')
     .then(response => response.json())
     .then(data => {
@@ -23,7 +22,7 @@ function fetchData() {
 }
 
 function renderRows(data) {
-  tableBody.innerHTML = ''; //clear
+  tableBody.innerHTML = '';
   data.forEach(row => {
     const tableRow = createRow(row.score, row.name, row.lastName);
     tableBody.appendChild(tableRow);
@@ -67,8 +66,9 @@ function addRow() {
     inputLastName.value = '';
   }
 }
-//---------------------------------------------------------------------------------
+
 /*
+----------------------------------------------------------------------------------
 // spara inputvärden i textfil...
 
 async function submitData() {
@@ -97,79 +97,38 @@ async function submitData() {
 ----------------------------------------------------------------------------------
 */
 
-function getDataTable() {
-  const table = document.getElementById('table');
-  const tbody = table.querySelector('tbody');
-  const rows = tbody.getElementsByTagName('tr');
-  const data = [];
-
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    const score = row.cells[0].innerText;
-    const name = row.cells[1].innerText;
-    const lastname = row.cells[2].innerText;
-
-    const rowData = {
-      score: score,
-      name: name,
-      lastName: lastname
-    };
-    data.push(rowData);
-  }
-  return data;
-}
-
-function saveData(data) {
-  const jsonData = JSON.stringify(data);
-
-  fetch('/data.json', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json' // x-www-form-urlencoded
-    },
-    body: jsonData
-  })
-    .then(response => response.json())
-    .then(result => {
-      console.log('Data saved successfully:', result);
-    })
-    .catch(err => {
-      console.error('Error saving data:', err);
-    });
-}
-
 async function submitData() {
   try {
-    const scoreInput = document.getElementById('inputScore');
-    const nameInput = document.getElementById('inputName');
-    const lastNameInput = document.getElementById('inputLastName');
+    const response = await fetch('/data.json');
+    const data = await response.json();
+    renderRows(data);
+
+    const scoreInput = document.querySelector('#inputScore');
+    const nameInput = document.querySelector('#inputName');
+    const lastNameInput = document.querySelector('#inputLastName');
 
     const score = scoreInput.value;
     const name = nameInput.value;
     const lastName = lastNameInput.value;
 
     if (score && name && lastName) {
-      const data = getDataTable();
-
       const newData = {
         score: score,
         name: name,
         lastName: lastName
       };
 
-      data.push(newData);
-
       const response = await fetch('/data.json', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json' //x-www-form-urlencoded
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(newData)
       });
 
       if (response.ok) {
         console.log('Data submitted successfully.');
-        saveData(data);
+        fetchData();
       } else {
         throw new Error('Error submitting data. Server responded with status: ' + response.status);
       }
@@ -177,124 +136,5 @@ async function submitData() {
   } catch (err) {
     console.error('Error submitting data:', err);
   }
-  getDataTable();
 }
 });
-
-/* ---------------------------------------------------------------------------------------------------------------
-
-class Xcore {
-  constructor(score, name, lastName) {
-    this.score = score;
-    this.name = name;
-    this.lastName = lastName;
-  }
-}
-
-const rowData = new Xcore(score, name, lastname);
-
-data.push(rowData);
-}
-return data;
-}
-
-/*  -----------------------------------------------------------------------------------------------------------------------------------------
-I CANT CODE, EMOTIONAL DAMAAGE; STOOPID- (Steven He)
-
-lass Xcore {
-  constructor(score, name, lastName) {
-      this.score = score;
-      this.name = name;
-      this.lastName = lastName;
-  }
-  urScoreName() {
-      return `${this.score} ${this.name} ${this.lastName}`;
-  }
-}
-
-let data = [];
-
-document.getElementById('submit').addEventListener('click', () => {
-    const score = parseInt(document.getElementById('scoreInput').value);
-    const name = document.getElementById('nameInput').value;
-    const lastName = document.getElementById('lastNameInput').value;
-
-    data.push(new Xcore(score, name, lastName));
-
-    scoreToTable();
-});
-
-function scoreToTable() {
-  let scores = "<table><tr>";
-    for (let x in data[0]) {
-        scores += `<th>${x}</th>`;
-    }
-    data.forEach(data => {
-        scores += "<tr>";
-
-        for (let attr in data) {
-            scores += `<td>${data[attr]}</td>`
-        }
-        scores += "</tr>";
-    });
-    document.getElementById("tBody").innerHTML = scores + "</table>";
-}
-----------------------------------------------------------------------------------------------------------------------------------
-/*document.addEventListener('DOMContentLoaded', () => {
-  const submitButton = document.getElementById('submitButton');
-
-submitButton.addEventListener('click', () => {
-document.querySelector('form').addEventListener('submit', (event) => {
-  event.preventDefault();
-
-  const score = document.getElementById('scoreInput').value;
-  const name = document.getElementById('nameInput').value;
-  const lastname = document.getElementById('lastnameInput').value;
-  const tableBody = document.querySelector('tBody');
-  const row = document.createElement('tr');
-
-  const score = scoreInput.value;
-  const name = nameInput.value;
-  const lastname = lastnameInput.value;
-  
-  row.innerHTML = `
-    <td>${score}</td>
-    <td>${name}</td>
-    <td>${lastname}</td>
-  `;
-
-  tableBody.appendChild(row);
-
-  document.getElementById('score').value = '';
-  document.getElementById('name').value = '';
-  document.getElementById('lastname').value = '';
-});
-
-    fetch('/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: `score=${score}&name=${name}&lastname=${lastname}`,
-    })
-    .then(response => {
-      if (response.redirected) {
-        window.location.href = response.url;
-      }
-    });
-  });
-    fetch('/')
-      .then(response => response.json())
-      .then(data => {
-        const tableBody = document.querySelector('#dataTable tbody');
-        data.forEach(entry => {
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${entry.score}</td>
-            <td>${entry.name}</td>
-            <td>${entry.lastname}</td>
-          `;
-          tableBody.appendChild(row);
-        });
-      });
-});*//////

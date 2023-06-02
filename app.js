@@ -1,72 +1,75 @@
 // import
+/*
+import express from 'express';
+import fs from 'fs';
+import path from 'path';
+*/
+
 const express = require('express'); // Uncaught ReferenceError: require is not defined ??? 
 const fs = require('fs');
 const path = require('path');
+
 const app = express();
 const port = 8080;
 
 app.use(express.json());
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true})); //
+app.use(express.urlencoded({ extended: true}));
 
 const dataFilePath = path.join(__dirname, 'data.json');
 
-/*
-import express, { json, static } from 'express';
-import { readFile, readFileSync, writeFileSync } from 'fs';
-import { join } from 'path';
-const app = express();
-const port = 8080;
-
-app.use(json());
-app.use(static('public'));
-*/
-
 app.get('/', (req, res) => {
-  res.sendFile('index.html', { root: __dirname });
+  res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/data.json', (req, res) => { //hämta
+app.get('/data.json', (req, res) => {
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading data file:', err);
+      res.status(500).json({ error: 'Failed to fetch data' });
+      return;
+    }
 
-  fs.readFile(dataFilePath, 'utf8', (err, data) => { //SYNC
-      if (err) {
-        console.error('Error reading data file:', err);
-        res.status(500).json({ error: 'Failed to fetch data' });
-        return;
-      }
-
-      try {
-        const tableData = JSON.parse(data);
-        res.json(tableData);
-      } catch (parseErr) {
-        console.error('Error parsing JSON:', parseErr);
-        res.status(500).json({ error: 'Failed to fetch data' });
-      }
-    });
+    try {
+      const tableData = JSON.parse(data);
+      res.json(tableData);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+      res.status(500).json({ error: 'Failed to fetch data' });
+    }
+  });
 });
 
-// NOT IN USE// NOT WÖRKING AS PROPERLY // NOT IN USE// NOT IN USE// NOT IN USE
+// NOT WÖRKING PROPERLY
 app.post('/data.json', (req, res) => {
-    const newData = req.body;
-  
-    let existingData = [];
-    try {
-      const dataFile = fs.readFileSync('data.json');
-      existingData = JSON.parse(dataFile);
-    } catch (err) {
-      console.error('Error reading existing data:', err);
+  const newData = req.body;
+
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading data file:', err);
+      res.status(500).json({ error: 'Error saving data' });
+      return;
     }
-  
-    existingData.push(newData);
-  
+
     try {
-      fs.writeFileSync('data.json', JSON.stringify(existingData)); // writeFile  utf-8
-      console.log('Data saved successfully.');
-      res.json({ message: 'Data saved successfully.' });
-    } catch (err) {
-      console.error('Error saving data:', err);
-      res.status(500).json({ error: 'Error saving data.' });
+      const existingData = JSON.parse(data);
+      existingData.push(newData);
+      const updatedData = JSON.stringify(existingData);
+
+      fs.writeFile(dataFilePath, updatedData, 'utf8', (writeErr) => {
+        if (writeErr) {
+          console.error('Error writing data file:', writeErr);
+          res.status(500).json({ error: 'Error saving data' });
+        } else {
+          console.log('Data saved successfully.');
+          res.json({ message: 'Data saved successfully.' });
+        }
+      });
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+      res.status(500).json({ error: 'Error saving data' });
     }
+  });
 });
 
 app.listen(port, ()=> console.info(`Listening on port ${port}`));
