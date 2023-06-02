@@ -7,8 +7,7 @@ window.addEventListener('DOMContentLoaded', () => {
   const submitButton = document.getElementById('submitButton');
 
   fetchButton.addEventListener('click', fetchData);
-  addButton.addEventListener('click', addRow);
-  submitButton.addEventListener('click', newTable);
+  submitButton.addEventListener('click', addRow, newTable);
 
 function fetchData() { 
   fetch('data.json')
@@ -92,6 +91,46 @@ function getDataTable() {
 }
 
 function newTable() {
+  const scoreInput = document.getElementById('inputScore');
+  const nameInput = document.getElementById('inputName');
+  const lastNameInput = document.getElementById('inputLastName');
+
+  const score = scoreInput.value;
+  const name = nameInput.value;
+  const lastName = lastNameInput.value;
+
+  if (score && name && lastName) {
+    const newData = {
+      score: score,
+      name: name,
+      lastName: lastName
+    };
+
+    fetch('/data.json')
+      .then(response => response.json())
+      .then(data => {
+        const updatedData = [...data, newData];
+        return fetch('/data.json', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedData)
+        });
+      })
+      .then(response => response.json())
+      .then(result => {
+        console.log('Data submitted successfully:', result);
+        renderRows(result); // Render the rows after submitting the data
+      })
+      .catch(err => {
+        console.error('Error submitting data:', err);
+      });
+  }
+}
+
+/*
+function newTable() {
   const data = getDataTable();
 
   fetch('data.json', {
@@ -110,6 +149,7 @@ function newTable() {
       console.error('Error submitting data:', err);
     });
 }
+*/
 });
 
 /*

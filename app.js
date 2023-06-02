@@ -15,7 +15,7 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.get('/', (_req, res) => { // '/data.json
+app.get('/', (_req, res) => { // /data.json
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -34,7 +34,7 @@ app.get('/', (_req, res) => { // '/data.json
 });
 
 // NOT WÖRKING PROPERLY
-app.post('/', (req, res) => { // '/data.json
+app.post('/', (req, res) => { // /data.json
   const newData = req.body;
 
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
