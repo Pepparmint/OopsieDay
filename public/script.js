@@ -8,7 +8,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   fetchButton.addEventListener('click', fetchData);
   addButton.addEventListener('click', addRow); //addButton.addEventListener('click', addData);
-  submitButton.addEventListener('click', submitData); // submitData()
+  submitButton.addEventListener('click', submitData()); // submitData()
 
 function fetchData() { 
   fetch('/data.json')
