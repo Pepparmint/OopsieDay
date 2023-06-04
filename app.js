@@ -1,3 +1,4 @@
+//server
 const express = require('express'); // Uncaught ReferenceError: require is not defined ??? 
 const fs = require('fs');
 const path = require('path');
@@ -5,48 +6,25 @@ const path = require('path');
 const app = express();
 const port = 8080;
 
+const dataFilePath = path.join(__dirname, 'data.json');
+
 app.use(express.json());
 app.use(express.static('public'));
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
-const dataFilePath = path.join(__dirname, 'data.json');
+app.route('/data')
+  .get((req, res) => {
+    res.send('GET method is allowed');
+  })
+  .post((req, res) => {
+    res.send('POST method is allowed');
+  });
 
 app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// NOT WÖRKING PROPERLY, TINKERING ABOUT
-app.post('/', (req, res) => { // /data.json
-  const newData = req.body;
-
-  fs.readFile(dataFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading existing data:', err);
-      res.status(500).json({ error: 'Error saving data' });
-      return;
-    }
-
-    let existingData = [];
-    if (data) {
-      existingData = JSON.parse(data);
-    }
-
-    existingData.push(newData);
-
-    fs.writeFile(dataFilePath, JSON.stringify(existingData), 'utf8', (err) => {
-      if (err) {
-        console.error('Error saving data:', err);
-        res.status(500).json({ error: 'Error saving data' });
-        return;
-      }
-
-      console.log('Data saved successfully.');
-      res.json({ message: 'Data saved successfully.' });
-    });
-  });
-});
-
-app.get('/', (_req, res) => { // /data.json
+app.get('/data', (_req, res) => {
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -64,4 +42,43 @@ app.get('/', (_req, res) => { // /data.json
   });
 });
 
-app.listen(port, ()=> console.info(`Listening on port ${port}`));
+app.post('/data', (req, res) => {
+  const { score, name, lastName } = req.body;
+
+  if (!score || !name || !lastName) {
+    res.status(400).send('Invalid data');
+    return;
+  }
+
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading data file:', err);
+      res.status(500).send('Error saving data');
+      return;
+    }
+
+    let existingData = [];
+    try {
+      existingData = JSON.parse(data);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+    }
+
+    existingData.push({ score, name, lastName });
+
+    fs.writeFile(dataFilePath, JSON.stringify(existingData), (writeErr) => {
+      if (writeErr) {
+        console.error('Error writing data file:', writeErr);
+        res.status(500).send('Error saving data');
+        return;
+      }
+
+      console.log('Data saved successfully.');
+      res.send('Data saved successfully');
+    });
+  });
+});
+
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});

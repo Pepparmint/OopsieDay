@@ -1,13 +1,8 @@
 <!-- learning student
-      ladda ned nodejs & express å ejs(används ej) + nodemon
+  ladda ned nodejs, express, ejs(används ej) & nodemon
   "name": "Launch firefox against localhost",
   "url": "http://localhost:8080",
-  kör på liveserver
-
-
-Funkar bättre på liveserver bättre men inte i CS code debugger  o.o why? 
-
--->
+  kör på liveserver -->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,22 +12,11 @@ Funkar bättre på liveserver bättre men inte i CS code debugger  o.o why?
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script src="script.js" type="text/javascript"></script> 
+    <script src="script.js" type="text/javascript"></script>
     <script src="app.js" type="text/javascript"></script>
     <link href="main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script> <!-- IDK stackoverflow säger att man behöver det här. Skriva något i package.json ? Note to self
-    RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.
-
-    IE 6+ .......... compatible ✔
-    Firefox 2+ ..... compatible ✔
-    Safari 3.2+ .... compatible ✔
-    Chrome 3+ ...... compatible ✔
-    Opera 10+ ...... compatible ✔
-
-    Get started then check out the API. -->
 
 </head>
 <body>
@@ -46,7 +30,7 @@ Funkar bättre på liveserver bättre men inte i CS code debugger  o.o why?
     <!-- add score namn -->
     <h3>Add your imaginary scores, Sir!</h3>
 
-    <form>  <!--  ?-->
+    <form>  <!--?-->
       <tr>
         <th><label for="inputScore">Score:</label></th>
         <td><input type="text" id="inputScore" placeholder="Enter Score"></td>
@@ -58,8 +42,8 @@ Funkar bättre på liveserver bättre men inte i CS code debugger  o.o why?
         <td><input type="text" id="inputLastName" placeholder="Last Name"></td>
 
         <td>
-          <button id="submitButton" type="button">Add Score & Name</button>
-          <button id="fetchButton" type="button">Existing Scores</button>
+          <button type="submit" id="submitButton">Add Score & Name</button>
+          <button type="button" id="fetchButton">Fetch Data</button>
         </td>
       </tr>
         <table id="table" class="table">

@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
   submitButton.addEventListener('click', addRow); // submitData
 
 function fetchData() { 
-  fetch('./data.json')
+  fetch('/data.json') // /data funkar inte /data.json funkar
     .then(response => response.json())
     .then(data => {
       renderRows(data);
