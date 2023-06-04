@@ -3,13 +3,13 @@
 window.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.querySelector('#tableBody');
   const fetchButton = document.querySelector('#fetchButton');
-  const submitButton = document.getElementById('submitButton');
+  const submitButton = document.querySelector('#submitButton');
 
-  fetchButton.addEventListener('click', fetchData);
-  submitButton.addEventListener('click', addRow, newTable); // submitData
+  fetchButton.addEventListener('click', fetchData); // getExistingData
+  submitButton.addEventListener('click', addRow); // submitData
 
 function fetchData() { 
-  fetch('data.json')
+  fetch('./data.json')
     .then(response => response.json())
     .then(data => {
       renderRows(data);
@@ -21,8 +21,10 @@ function fetchData() {
 
 function renderRows(data) {
   tableBody.innerHTML = '';
-  data.forEach(row => {
-    const tableRow = createRow(row.score, row.name, row.lastName);
+
+  data.forEach(rowData => {
+    const { score, name, lastName } = rowData;
+    const tableRow = createRow(score, name, lastName);
     tableBody.appendChild(tableRow);
   });
 }
@@ -46,7 +48,9 @@ function createCell(text) {
   return cell;
 }
 
-function addRow() {
+function addRow(event) {
+  event.preventDefault();
+
   const inputScore = document.querySelector('#inputScore');
   const inputName = document.querySelector('#inputName');
   const inputLastName = document.querySelector('#inputLastName');
@@ -62,50 +66,29 @@ function addRow() {
     inputScore.value = '';
     inputName.value = '';
     inputLastName.value = '';
+
+    saveData(score, name, lastName);
   }
 }
 
-function getDataTable() {
-  const table = document.getElementById('table');
-  const tbody = table.querySelector('tbody');
-  const rows = tbody.getElementsByTagName('tr');
-  const data = [];
-
-  for (let i = 0; i < rows.length; i++) {
-    const row = rows[i];
-    const score = row.cells[0].innerText;
-    const name = row.cells[1].innerText;
-    const lastName = row.cells[2].innerText;
-
-    const rowData = {
-      score: score,
-      name: name,
-      lastName: lastName
-    };
-
-    data.push(rowData);
-  }
-
-  return data;
-}
-
-function newTable() {
-  const data = getDataTable();
-
-  fetch('data.json', { // what to wriiight skriva skriva
+function saveData(score, name, lastName) {
+  fetch('/data', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
+    body: JSON.stringify({ score, name, lastName })
   })
-    .then(response => response.json())
-    .then(result => {
-      console.log('Data submitted successfully:', result);
-    })
-    .catch(err => {
-      console.error('Error submitting data:', err);
-    });
+  .then(response => {
+    if (response.ok) {
+      console.log('Data saved successfully.');
+    } else {
+      console.error('Failed to save data:', response.statusText);
+    }
+  })
+  .catch(err => {
+    console.error('Error saving data:', err);
+  });
 }
 });
 
