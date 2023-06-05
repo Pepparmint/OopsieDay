@@ -1,6 +1,7 @@
 const express = require('express'); // Uncaught ReferenceError: require is not defined ??? 
 const fs = require('fs');
 const path = require('path');
+//const cors = require('cors');
 
 const app = express();
 const port = 8080;
@@ -10,6 +11,16 @@ const dataFilePath = path.join(__dirname, 'data.json');
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
+// app.use(cors())
+
+/*
+const corsOptions = {
+  origin: 'http://http://localhost:8080/index.html',
+  methods: ['GET', 'POST'],
+};
+
+app.use(cors(corsOptions));
+*/
 
 /*
 app.route('/data')

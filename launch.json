@@ -9,7 +9,26 @@
             "request": "launch",
             "name": "Launch firefox against localhost",
             "url": "http://localhost:8080",
-            "webRoot": "${workspaceFolder}" // C:\\Users\\Charlie\\Handelsakademin\\OopsieDay   ${workspaceFolder}
+            "webRoot": "${workspaceFolder}"
         }
     ]
 }
+// C:\\Users\\Charlie\\Handelsakademin\\OopsieDay
+// file:///C:/Users/Charlie/Handelsakademin/OopsieDay/public/script.js   ||   "file": "C:\\Users\\Charlie\\Handelsakademin\\OopsieDay\\public\\script.js"
+
+/*
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Server",
+      "program": "${workspaceFolder}/app.js",
+      "skipFiles": [
+        "<node_internals>/**"
+      ]
+    }
+  ]
+}
+*/
