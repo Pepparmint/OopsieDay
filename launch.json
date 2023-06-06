@@ -13,22 +13,4 @@
         }
     ]
 }
-// C:\\Users\\Charlie\\Handelsakademin\\OopsieDay
-// file:///C:/Users/Charlie/Handelsakademin/OopsieDay/public/script.js   ||   "file": "C:\\Users\\Charlie\\Handelsakademin\\OopsieDay\\public\\script.js"
-
-/*
-{
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Launch Server",
-      "program": "${workspaceFolder}/app.js",
-      "skipFiles": [
-        "<node_internals>/**"
-      ]
-    }
-  ]
-}
-*/
+// C:\\Users\\Charlie\\Handelsakademin\\OopsieDay    "file": "C:\\Users\\Charlie\\Handelsakademin\\OopsieDay\\public\\script.js"
