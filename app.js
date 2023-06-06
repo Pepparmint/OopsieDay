@@ -23,6 +23,60 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
+app.get('/', (_req, res) => { // /data
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading data file:', err);
+      res.status(500).json({ error: 'Failed to fetch data' });
+      return;
+    }
+
+    try {
+      const tableData = JSON.parse(data);
+      res.json(tableData);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+      res.status(500).json({ error: 'Failed to fetch data' });
+    }
+  });
+});
+
+app.post('/', (req, res) => { // /data
+  const { score, name, lastName } = req.body;
+
+  if (!score || !name || !lastName) {
+    res.status(400).send('Invalid data');
+    return;
+  }
+
+  fs.readFile(dataFilePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading data file:', err);
+      res.status(500).send('Error saving data');
+      return;
+    }
+
+    let existingData = [];
+    try {
+      existingData = JSON.parse(data);
+    } catch (parseErr) {
+      console.error('Error parsing JSON:', parseErr);
+    }
+
+    existingData.push({ score, name, lastName });
+
+    fs.writeFile(dataFilePath, JSON.stringify(existingData), (writeErr) => {
+      if (writeErr) {
+        console.error('Error writing data file:', writeErr);
+        res.status(500).send('Error saving data');
+        return;
+      }
+
+      console.log('Data saved successfully.');
+      res.send('Data saved successfully');
+    });
+  });
+});
 /*
 app.route('/data')
   .get((req, res) => {
@@ -33,6 +87,11 @@ app.route('/data')
   });
 */
 
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
+
+/*
 app.route('/data')
   .get((req, res) => {
     fs.readFile(dataFilePath, 'utf8', (err, data) => {
@@ -87,65 +146,4 @@ app.route('/data')
       });
     });
   });
-
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-/*
-app.get('/', (_req, res) => {
-  fs.readFile(dataFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading data file:', err);
-      res.status(500).json({ error: 'Failed to fetch data' });
-      return;
-    }
-
-    try {
-      const tableData = JSON.parse(data);
-      res.json(tableData);
-    } catch (parseErr) {
-      console.error('Error parsing JSON:', parseErr);
-      res.status(500).json({ error: 'Failed to fetch data' });
-    }
-  });
-});
-
-app.post('/', (req, res) => {
-  const { score, name, lastName } = req.body;
-
-  if (!score || !name || !lastName) {
-    res.status(400).send('Invalid data');
-    return;
-  }
-
-  fs.readFile(dataFilePath, 'utf8', (err, data) => {
-    if (err) {
-      console.error('Error reading data file:', err);
-      res.status(500).send('Error saving data');
-      return;
-    }
-
-    let existingData = [];
-    try {
-      existingData = JSON.parse(data);
-    } catch (parseErr) {
-      console.error('Error parsing JSON:', parseErr);
-    }
-
-    existingData.push({ score, name, lastName });
-
-    fs.writeFile(dataFilePath, JSON.stringify(existingData), (writeErr) => {
-      if (writeErr) {
-        console.error('Error writing data file:', writeErr);
-        res.status(500).send('Error saving data');
-        return;
-      }
-
-      console.log('Data saved successfully.');
-      res.send('Data saved successfully');
-    });
-  });
-});
 */

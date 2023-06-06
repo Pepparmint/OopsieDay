@@ -72,7 +72,7 @@ function addRow(event) {
 }
 
 function saveData(score, name, lastName) {
-  fetch('/data', {
+  fetch('/', { // /data
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
