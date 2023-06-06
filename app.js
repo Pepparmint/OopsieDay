@@ -77,15 +77,6 @@ app.post('/', (req, res) => { // /data
     });
   });
 });
-/*
-app.route('/data')
-  .get((req, res) => {
-    res.send('GET method is allowed');
-  })
-  .post((req, res) => {
-    res.send('POST method is allowed');
-  });
-*/
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
