@@ -6,6 +6,7 @@ const app = express();
 const port = 8080;
 
 const dataFilePath = path.join(__dirname, 'data.json');
+//const dataFilePath = 'data.json';
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -93,7 +94,7 @@ app.listen(port, () => {
 });
 
 /*
-app.get('/data', (_req, res) => {
+app.get('/', (_req, res) => {
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -111,7 +112,7 @@ app.get('/data', (_req, res) => {
   });
 });
 
-app.post('/data', (req, res) => {
+app.post('/', (req, res) => {
   const { score, name, lastName } = req.body;
 
   if (!score || !name || !lastName) {
