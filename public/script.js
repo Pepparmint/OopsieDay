@@ -49,7 +49,8 @@ function addRow(event) {
     inputLastName.value = '';
   }
 
-  // updateJSONData(data)
+  // const data = {score, name, lastName};
+  // updateJSONData(data);
 }
 
 async function getJSON(dataFilePath) {
@@ -77,11 +78,11 @@ function renderJSONData() {
 
 renderJSONData();
 
-async function updateJSONData(data) { //this no work
+async function updateJSONData(data) { //this no work  // data
   const response = await fetch(dataFilePath);
   let jsonData = await response.json();
 
-  jsonData.scores.push(data);
+  jsonData.scores.push(data); // data
 
   const options = {
     method: 'POST',
