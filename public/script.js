@@ -48,6 +48,8 @@ function addRow(event) {
     inputName.value = '';
     inputLastName.value = '';
   }
+
+  // updateJSONData(data)
 }
 
 async function getJSON(dataFilePath) {
@@ -92,13 +94,7 @@ async function updateJSONData(data) { //this no work
   await fetch(dataFilePath, options);
 
   renderJSONData(); // updatera data
-}
-
-function clearTable() { // No userino
-  const tableBody = document.querySelector('#tableBody');
-  tableBody.innerHTML = '';
-}
-;
+  }
 });
 
 /*
