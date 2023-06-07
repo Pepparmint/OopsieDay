@@ -1,4 +1,5 @@
-[
+{
+  "scores": [
     {
       "score": 999,
       "name": "Sans",
@@ -14,4 +15,5 @@
       "name": "Kung Krusbär",
       "lastName": "Kebab"
     }
-]
+  ]
+}

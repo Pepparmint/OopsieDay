@@ -10,9 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <script src="public/script.js" type="text/javascript"></script>
-    <script src="app.js" type="text/javascript"></script>
-    <link href="public/main.css" rel="stylesheet" type="text/css">
+    <script src="script.js" type="module"></script>
+    <script src="data.json" type="json"></script>
+    <link href="css/main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -34,7 +34,7 @@
     <!-- add score namn -->
     <h3>Add your imaginary scores, Sir!</h3>
 
-    <form>  <!--?-->
+    <form action="/" method="POST">  <!--?-->
       <tr>
         <th><label for="inputScore">Score:</label></th>
         <td><input type="text" id="inputScore" placeholder="Enter Score"></td>

@@ -5,13 +5,22 @@ window.addEventListener('DOMContentLoaded', () => {
   const fetchButton = document.querySelector('#fetchButton');
   const submitButton = document.querySelector('#submitButton');
 
-  fetchButton.addEventListener('click', fetchData); // getExistingData
+  const dataFilePath = 'data.json'; // waitfor it
+
+  fetchButton.addEventListener('click', renderJSONData); // getData
   submitButton.addEventListener('click', addRow); // submitData
 
+/*
 function fetchData() { 
-  fetch('/data.json') // /data.json funkar i liveserver
-    .then(response => response.json())
+  fetch(dataFilePath)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log('Fetched data:', data);
       renderRows(data);
     })
     .catch(err => {
@@ -27,7 +36,7 @@ function renderRows(data) {
     const tableRow = createRow(score, name, lastName);
     tableBody.appendChild(tableRow);
   });
-}
+}*/
 
 function createRow(score, name, lastName) {
   const tableRow = document.createElement('tr');
@@ -67,29 +76,34 @@ function addRow(event) {
     inputName.value = '';
     inputLastName.value = '';
 
-    saveData(score, name, lastName);
+    getJSON(dataFilePath);
   }
 }
 
-function saveData(score, name, lastName) {
-  fetch('/', { // /data
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ score, name, lastName })
-  })
-  .then(response => {
-    if (response.ok) {
-      console.log('Data saved successfully.');
-    } else {
-      console.error('Failed to save data:', response.statusText);
-    }
-  })
-  .catch(err => {
-    console.error('Error saving data:', err);
-  });
+async function getJSON(dataFilePath) {
+  let response = await fetch(dataFilePath);
+  let jsonData = await response.json();
+  return jsonData;
 }
+
+function renderJSONData() {
+  getJSON(dataFilePath)
+    .then(jsonData => {
+      jsonData.scores.forEach(function (e) {
+        document.getElementById('tableBody').innerHTML += `
+          <tr>
+            <td>${e.score}</td>
+            <td>${e.name}</td>
+            <td>${e.lastName}</td>
+          </tr>`;
+      });
+    })
+    .catch(err => {
+      console.error('Error fetching JSON data:', err);
+    });
+}
+
+renderJSONData();
 });
 
 /*
