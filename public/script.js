@@ -5,38 +5,10 @@ window.addEventListener('DOMContentLoaded', () => {
   const fetchButton = document.querySelector('#fetchButton');
   const submitButton = document.querySelector('#submitButton');
 
-  const dataFilePath = 'data.json'; // waitfor it
+  const dataFilePath = '/public/data.json'; // waitfor it
 
   fetchButton.addEventListener('click', renderJSONData); // getData
   submitButton.addEventListener('click', addRow); // submitData
-
-/*
-function fetchData() { 
-  fetch(dataFilePath)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    })
-    .then(data => {
-      console.log('Fetched data:', data);
-      renderRows(data);
-    })
-    .catch(err => {
-      console.error('Error fetching data:', err);
-    });
-}
-
-function renderRows(data) {
-  tableBody.innerHTML = '';
-
-  data.forEach(rowData => {
-    const { score, name, lastName } = rowData;
-    const tableRow = createRow(score, name, lastName);
-    tableBody.appendChild(tableRow);
-  });
-}*/
 
 function createRow(score, name, lastName) {
   const tableRow = document.createElement('tr');
@@ -76,7 +48,7 @@ function addRow(event) {
     inputName.value = '';
     inputLastName.value = '';
 
-    getJSON(dataFilePath);
+    renderJSONData(dataFilePath); // idk maybe
   }
 }
 

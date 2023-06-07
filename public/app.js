@@ -5,7 +5,7 @@ const path = require('path');
 const app = new express();
 const port = 8080;
 
-const dataFilePath = 'public/data.json';
+const dataFilePath = 'data.json';
 //const dataFilePath = 'public/data.json';
 
 app.use(express.json());
@@ -47,9 +47,9 @@ app.get('/', (_req, res) => { // /data
 
 app.post('/', (req, res) => { // /data
   // const {score, name, lastName} = req.body;
-  const score = req.body.score;
-  const name = req.body.name;
-  const lastName = req.body.lastName;
+  let score = req.body.score;
+  let name = req.body.name;
+  let lastName = req.body.lastName;
 
   if (!score || !name || !lastName) {
     res.status(400).send('Invalid data');
@@ -66,6 +66,7 @@ app.post('/', (req, res) => { // /data
     // let existingData = [];
     try {
       const jsonData = JSON.parse(jsonData.toString());
+
       jsonData.scores[jsonData.scores.length] =
       {
           score: parseInt(score),
