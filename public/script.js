@@ -47,8 +47,6 @@ function addRow(event) {
     inputScore.value = '';
     inputName.value = '';
     inputLastName.value = '';
-
-    getJSON(dataFilePath); // idk maybe
   }
 }
 
@@ -77,10 +75,30 @@ function renderJSONData() {
 
 renderJSONData();
 
+async function updateJSONData(data) { //this no work
+  const response = await fetch(dataFilePath);
+  let jsonData = await response.json();
+
+  jsonData.scores.push(data);
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(jsonData),
+  };
+
+  await fetch(dataFilePath, options);
+
+  renderJSONData(); // updatera data
+}
+
 function clearTable() { // No userino
   const tableBody = document.querySelector('#tableBody');
   tableBody.innerHTML = '';
 }
+;
 });
 
 /*
