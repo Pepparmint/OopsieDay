@@ -48,7 +48,7 @@ function addRow(event) {
     inputName.value = '';
     inputLastName.value = '';
 
-    renderJSONData(dataFilePath); // idk maybe
+    getJSON(dataFilePath); // idk maybe
   }
 }
 
@@ -76,6 +76,11 @@ function renderJSONData() {
 }
 
 renderJSONData();
+
+function clearTable() { // No userino
+  const tableBody = document.querySelector('#tableBody');
+  tableBody.innerHTML = '';
+}
 });
 
 /*
