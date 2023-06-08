@@ -1,11 +1,10 @@
 //SCORESNAMNDATA
+const dataFilePath = 'data.json'; // waitfor it
 
 window.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.querySelector('#tableBody');
   const fetchButton = document.querySelector('#fetchButton');
   const submitButton = document.querySelector('#submitButton');
-
-  const dataFilePath = '/public/data.json'; // waitfor it
 
   fetchButton.addEventListener('click', renderJSONData); // getData
   submitButton.addEventListener('click', addRow); // submitData
@@ -49,13 +48,13 @@ function addRow(event) {
     inputLastName.value = '';
   }
 
-  // const data = {score, name, lastName};
-  // updateJSONData(data);
+  const scores = {score, name, lastName};
+  updateJSONData(dataFilePath, scores);
 }
 
 async function getJSON(dataFilePath) {
-  let response = await fetch(dataFilePath);
-  let jsonData = await response.json();
+  let data = await fetch(dataFilePath);
+  let jsonData = await data.json();
   return jsonData;
 }
 
@@ -78,11 +77,11 @@ function renderJSONData() {
 
 renderJSONData();
 
-async function updateJSONData(data) { //this no work  // data
-  const response = await fetch(dataFilePath);
-  let jsonData = await response.json();
+async function updateJSONData(dataFilePath, scores) { // // data
+  const data = await fetch(dataFilePath);
+  let jsonData = await data.json();
 
-  jsonData.scores.push(data); // data
+  jsonData.scores.push(scores); // data
 
   const options = {
     method: 'POST',
@@ -94,7 +93,7 @@ async function updateJSONData(data) { //this no work  // data
 
   await fetch(dataFilePath, options);
 
-  renderJSONData(); // updatera data
+  renderJSONData(); // render data
   }
 });
 
