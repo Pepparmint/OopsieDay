@@ -1,4 +1,5 @@
 //SCORESNAMNDATA
+// TESTAR PÅ LIVESERVER
 
 const dataFilePath = 'data.json'; // waitfor it
 
