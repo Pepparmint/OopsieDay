@@ -54,6 +54,8 @@ function addRow(event) {
 
   // const scores = {score, name, lastName};
   // updateJSONData(dataFilePath, scores);
+
+  // renderJSONData();
 }
 
 async function getJSON(dataFilePath) {
@@ -68,9 +70,9 @@ function renderJSONData() {
       jsonData.scores.forEach(function (e) {
         document.getElementById('tableBody').innerHTML += `
           <tr>
-            <td>${e.score}</td>
-            <td>${e.name}</td>
-            <td>${e.lastName}</td>
+          <td>${e.score}</td>
+          <td>${e.name}</td>
+          <td>${e.lastName}</td>
           </tr>`;
       });
     })
