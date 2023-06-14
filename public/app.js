@@ -7,7 +7,7 @@ const fs = require('fs');
 const app = new express();
 const port = 8080;
 
-const dataFilePath = 'public/data.json';
+const dataFilePath = 'public/data.json'; // O_O
 // const dataFilePath = path.join('public', 'data.json');
 
 app.use(express.json());
