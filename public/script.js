@@ -52,8 +52,8 @@ function addRow(event) {
     inputLastName.value = '';
   }
 
-  // const scores = {score, name, lastName};
-  // updateJSONData(dataFilePath, scores);
+  const scores = {score, name, lastName};
+  updateJSONData(dataFilePath, scores);
 }
 
 async function getJSON(dataFilePath) {
@@ -96,7 +96,6 @@ async function updateJSONData(dataFilePath, scores) { // update data
   };
 
   await fetch(dataFilePath, options);
-  renderJSONData();
   }
 
 /*

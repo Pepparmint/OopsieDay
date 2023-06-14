@@ -44,6 +44,9 @@ app.get('/', (_req, res) => { // /data
 
 app.post('/', (req, res) => {
   const { score, name, lastName } = req.body;
+  //const score = score.req.body;
+  //const name = name.req.body;
+  //const lastName = lastName.req.body;
 
   if (!score || !name || !lastName) {
     return res.status(400).send('Invalid data');
