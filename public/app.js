@@ -24,7 +24,7 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.get('/public/data', (_req, res) => { // '/public/data' , '/data' , '/public/data.json' , dataFilePath
+app.get('/public/data.json', (_req, res) => { // '/public/data' , '/data' , '/public/data.json' , dataFilePath
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -42,7 +42,7 @@ app.get('/public/data', (_req, res) => { // '/public/data' , '/data' , '/public/
   });
 });
 
-app.post('/public/data', (req, res) => { // '/public/data' , '/data' , '/public/data.json' , dataFilePath
+app.post('/public/data.json', (req, res) => { // '/public/data' , '/data' , '/public/data.json' , dataFilePath
   const { score, name, lastName } = req.body;
   //const score = score.req.body;
   //const name = name.req.body;

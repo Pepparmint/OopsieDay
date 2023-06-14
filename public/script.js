@@ -54,8 +54,14 @@ function addRow(event) {
     inputLastName.value = '';
   }
 
-  const scores = {score, name, lastName};
-  updateJSONData(dataFilePath, scores);
+  const scores = { score, name, lastName };
+  updateJSONData(dataFilePath, scores)
+    .then(() => {
+      console.log('Data saved successfully.');
+    })
+    .catch((err) => {
+      console.error('Error saving data:', err);
+    });
 }
 
 async function getJSON(dataFilePath) {
