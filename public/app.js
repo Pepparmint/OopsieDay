@@ -51,7 +51,38 @@ app.get('/', (_req, res) => { // /data
   });
 });
 
+app.post('/', (req, res) => {
+  const { score, name, lastName } = req.body;
 
+  if (!score || !name || !lastName) {
+    return res.status(400).send('Invalid data');
+  }
+
+  try {
+    const data = fs.readFileSync(dataFilePath, 'utf8');
+    const jsonData = JSON.parse(data);
+    // const jsonData = JSON.parse(fetchedData);
+
+    const newScore = {
+      score: parseInt(score),
+      name: name,
+      lastName: lastName
+    };
+
+    jsonData.scores.push(newScore);
+
+    fs.writeFileSync(dataFilePath, JSON.stringify(jsonData));
+
+    console.log('Data saved successfully.');
+    return res.send('Data saved successfully');
+  } catch (err) {
+    console.error('Error reading or writing data file:', err);
+    return res.status(500).send('Error saving data');
+  }
+});
+
+
+/*
 app.post('/', (req, res) => { // /data
   // const {score, name, lastName} = req.body;
   let score = req.body.score;
@@ -98,57 +129,4 @@ app.post('/', (req, res) => { // /data
   });
   res.sendFile(__dirname + "/index.html");
 });
-
-
-/* //test
-const { log } = require('console');
-const express = require('express');
-const fs = require('fs');
-
-const filePath = 'public/data.json';
-
-const app = new express();
-const port = 8080;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
-
-app.get("/", (req, res) => {
-    res.sendFile(__dirname + "/index.html");
-});
-
-app.post("/", (req, res) => {
-    let score = req.body.score;
-    let name = req.body.name;
-    let lastName = req.body.lastName;
-
-    fs.readFile(filePath, (err, data) => {
-        if (err) {
-            return console.error(err);
-        };
-
-        var data = JSON.parse(data.toString());
-
-        data.scores[data.scores.length] =
-        {
-          score: parseInt(score),
-          name: name,
-          lastName: lastName
-        };
-
-        fs.writeFile(filePath, JSON.stringify(data), (err, result) => {
-            if (err) {
-                return console.error(err);
-            }
-        });
-    });
-
-    res.sendFile(__dirname + "/index.html");
-});
-
 */
