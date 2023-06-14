@@ -24,7 +24,7 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.get('/public/data.json', (_req, res) => { // /data
+app.get('/public/data.json', (_req, res) => { // /data , dataFilePath , tableData
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -42,7 +42,7 @@ app.get('/public/data.json', (_req, res) => { // /data
   });
 });
 
-app.post('/public/data.json', (req, res) => { // /data
+app.post('/public/data.json', (req, res) => { // /data , dataFilePath , jsonData
   const { score, name, lastName } = req.body;
   //const score = score.req.body;
   //const name = name.req.body;
