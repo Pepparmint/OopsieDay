@@ -2,13 +2,13 @@
 
 const express = require('express');
 const fs = require('fs');
-// const path = require('path');
+const path = require('path'); // O_O
 
 const app = new express();
 const port = 8080;
 
-const dataFilePath = 'public/data.json'; // O_O
-// const dataFilePath = path.join('public', 'data.json');
+// const dataFilePath = 'public/data.json'; // O_O
+const dataFilePath = path.join('public', 'data.json'); // O_O
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -42,7 +42,7 @@ app.get('/', (_req, res) => { // /data
   });
 });
 
-app.post('/', (req, res) => {
+app.post('/', (req, res) => { // /data
   const { score, name, lastName } = req.body;
   //const score = score.req.body;
   //const name = name.req.body;

@@ -2,7 +2,7 @@
 // TESTAR PÅ LIVESERVER
 // const , var, let
 
-const dataFilePath = 'http://localhost:8080/public/data.json'; // nånting här ska ändras
+const dataFilePath = 'http://localhost:8080/public/data.json'; // nånting här ska ändras  'http://localhost:8080/data'
 
 window.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.querySelector('#tableBody');
