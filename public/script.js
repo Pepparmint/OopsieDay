@@ -13,7 +13,8 @@ window.addEventListener('DOMContentLoaded', () => {
   save2TxtButton.addEventListener('click', printData); // printData
 
 // nånting här ska ändras
-const dataFilePath = 'http://localhost:8080/public/data.json'; // 'http://localhost:8080/public/data.json' '/public/data.json' 'data.json'
+// 'http://localhost:8080/public/data.json' '/public/data.json' 'data.json'
+const dataFilePath = '/public/data.json'; 
 
 function createRow(score, name, lastName) {
   const tableRow = document.createElement('tr');
@@ -34,6 +35,7 @@ function createCell(text) {
   return cell;
 }
 
+// lägger till data
 function addRow(event) {
   event.preventDefault();
 
@@ -57,19 +59,21 @@ function addRow(event) {
   const scores = { score, name, lastName };
   updateJSONData(dataFilePath, scores)
     .then(() => {
-      console.log('Data saved successfully.');
+      console.log('Data got thrown into space successfully.');
     })
     .catch((err) => {
       console.error('Error saving data:', err);
     });
 }
 
+// fetchar data
 async function getJSON(dataFilePath) {
-  let data = await fetch(dataFilePath);
-  let jsonData = await data.json();
+  let respone = await fetch(dataFilePath);
+  let jsonData = await respone.json();
   return jsonData;
 }
 
+// visar data
 function renderJSONData() {
   getJSON(dataFilePath)
     .then(jsonData => {
@@ -89,7 +93,8 @@ function renderJSONData() {
 
 renderJSONData();
 
-async function updateJSONData(dataFilePath, scores) { // update data
+// update data
+async function updateJSONData(dataFilePath, scores) { 
   let response = await fetch(dataFilePath);
   let jsonData = await response.json();
 
@@ -105,29 +110,6 @@ async function updateJSONData(dataFilePath, scores) { // update data
 
   await fetch(dataFilePath, options);
   }
-
-/*
-// Sparar inputvärden till textfil :D 
-async function printData() {
-  var score = document.getElementById('inputScore').value;
-  var fname = document.getElementById('inputName').value;
-  var lname= document.getElementById('inputLastName').value;
-
-  alert("WORK PLS")
-
-  var data = [];
-  data.push(score);
-  data.push(fname);
-  data.push(lname);
-
-  var data_string = JSON.stringify(data, null, 2);
-
-  var file = new Blob([data_string],{type:"text"});
-  var anchor = document.createElement('a');
-  anchor.href = URL.createObjectURL(file);
-  anchor.download = "urScores.TXT"; 
-  anchor.click();
-  };*/
 
   // sparar tableBody till txtfil fir the lols
   async function printData() {
