@@ -54,8 +54,6 @@ function addRow(event) {
 
   // const scores = {score, name, lastName};
   // updateJSONData(dataFilePath, scores);
-
-  // renderJSONData();
 }
 
 async function getJSON(dataFilePath) {
@@ -98,7 +96,7 @@ async function updateJSONData(dataFilePath, scores) { // update data
   };
 
   await fetch(dataFilePath, options);
-  renderJSONData(); // render data
+  renderJSONData();
   }
 
 /*
@@ -124,7 +122,7 @@ async function printData() {
   anchor.click();
   };*/
 
-  // sparar tableBody till txtfil
+  // sparar tableBody till txtfil fir the lols
   async function printData() {
     var tableBody = document.getElementById('tableBody');
     var data = [];
@@ -150,41 +148,3 @@ async function printData() {
   }
   
 });
-
-
-
-/* // test
-const dataFilePath = 'data.json';
-async function getJSON(dataFilePath) {
-    let data = await fetch(dataFilePath);
-    let text = await data.json();
-    return text;
-}
-
-let jsonData = await getJSON(dataFilePath);
-
-jsonData.scores.forEach(function (e, i) {
-    document.getElementById("tableBody").innerHTML +=`
-    <tr>
-      <td>${e.score}</td>
-      <td>${e.name}</td>
-      <td>${e.lastName}</td>
-    </tr>`;
-});
-
-document.getElementById("tableBody").innerHTML +=
-    `<tr>
-        <td>
-            <input type="number" name="Score" id="scoreInput" placeholder="Score">
-        </td>
-        <td>
-            <input type="text" name="name" id="nameInput" placeholder="Name">
-        </td>
-        <td>
-            <input type="text" name="lastName" id="lastName" placeholder="Last name">
-        </td>
-        <td>
-            <input type="submit" value="SUBMIT" id="submit">
-        </td>
-    </tr>`;
-*/
