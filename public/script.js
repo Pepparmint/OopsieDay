@@ -1,5 +1,6 @@
 //SCORESNAMNDATA
 // TESTAR PÅ LIVESERVER
+// const , var, let
 
 const dataFilePath = 'data.json'; // waitfor it
 
@@ -82,7 +83,7 @@ function renderJSONData() {
 renderJSONData();
 
 async function updateJSONData(dataFilePath, scores) { // update data
-  const response = await fetch(dataFilePath);
+  let response = await fetch(dataFilePath);
   let jsonData = await response.json();
 
   jsonData.scores.push(scores);
