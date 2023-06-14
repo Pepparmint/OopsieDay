@@ -7,8 +7,8 @@ const path = require('path'); // O_O
 const app = new express();
 const port = 8080;
 
-// const dataFilePath = 'public/data.json'; // O_O
-const dataFilePath = path.join('public', 'data.json'); // O_O
+const dataFilePath = 'public/data'; // O_O
+// const dataFilePath = path.join('public', 'data.json'); // O_O
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -24,7 +24,7 @@ app.get('/', (_req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'));
 });
 
-app.get('/public/data.json', (_req, res) => { // /data , dataFilePath , tableData
+app.get('/public/data', (_req, res) => { // '/public/data' , '/data' , '/public/data.json' , dataFilePath
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -42,7 +42,7 @@ app.get('/public/data.json', (_req, res) => { // /data , dataFilePath , tableDat
   });
 });
 
-app.post('/public/data.json', (req, res) => { // /data , dataFilePath , jsonData
+app.post('/public/data', (req, res) => { // '/public/data' , '/data' , '/public/data.json' , dataFilePath
   const { score, name, lastName } = req.body;
   //const score = score.req.body;
   //const name = name.req.body;
@@ -57,13 +57,13 @@ app.post('/public/data.json', (req, res) => { // /data , dataFilePath , jsonData
     const jsonData = JSON.parse(data);
     // const jsonData = JSON.parse(fetchedData);
 
-    const newScore = {
+    const scores = {
       score: parseInt(score),
       name: name,
       lastName: lastName
     };
 
-    jsonData.scores.push(newScore);
+    jsonData.scores.push(scores);
 
     fs.writeFileSync(dataFilePath, JSON.stringify(jsonData));
 

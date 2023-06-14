@@ -2,8 +2,6 @@
 // TESTAR PÅ LIVESERVER
 // const , var, let
 
-const dataFilePath = 'http://localhost:8080/public/data.json'; // nånting här ska ändras  'http://localhost:8080/data'
-
 window.addEventListener('DOMContentLoaded', () => {
   const tableBody = document.querySelector('#tableBody');
   const fetchButton = document.querySelector('#fetchButton');
@@ -13,6 +11,9 @@ window.addEventListener('DOMContentLoaded', () => {
   fetchButton.addEventListener('click', renderJSONData); // getData
   submitButton.addEventListener('click', addRow); 
   save2TxtButton.addEventListener('click', printData); // printData
+
+// nånting här ska ändras
+const dataFilePath = 'http://localhost:8080/public/data.json'; // 'http://localhost:8080/public/data.json' '/public/data.json' 'data.json'
 
 function createRow(score, name, lastName) {
   const tableRow = document.createElement('tr');
