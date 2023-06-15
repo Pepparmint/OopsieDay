@@ -14,7 +14,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 // nånting här ska ändras
 // 'http://localhost:8080/public/data.json' '/public/data.json' 'data.json'
-const dataFilePath = '/public/data.json'; 
+const dataFilePath = '/public/data.json'; // <<-- samma som app.post? men använd inte .json men då funkar inget (?)
 
 function createRow(score, name, lastName) {
   const tableRow = document.createElement('tr');

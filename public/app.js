@@ -25,7 +25,7 @@ app.get('/', (_req, res) => {
 });
 
 // '/public/data' , '/data' , '/public/data.json'
-app.get('/public/data.json', (_req, res) => { 
+app.get('/public/data', (_req, res) => { 
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
@@ -44,7 +44,7 @@ app.get('/public/data.json', (_req, res) => {
 });
 
 // '/public/data' , '/data' , '/public/data.json' , dataFilePath
-app.post('/public/data.json', (req, res) => { 
+app.post('/public/data', (req, res) => { 
   const { score, name, lastName } = req.body;
 
   if (!score || !name || !lastName) {
