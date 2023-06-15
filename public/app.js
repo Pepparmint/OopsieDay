@@ -7,14 +7,14 @@ const path = require('path'); // O_O
 const app = new express();
 const port = 8080;
 
-const dataFilePath = '/public/data.json'; // O_O
+const dataFilePath = 'public/data.json'; // O_O
 // const dataFilePath = path.join('public', 'data.json'); // O_O
 
 app.use(express.json());
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => { // 
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Origin', '*'); // lr 'http://localhost:8080'
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   next();
