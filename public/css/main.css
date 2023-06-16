@@ -1,5 +1,5 @@
 body{
-    background-image: url("/public/img/SANS.jpg");
+    background: url("/public/img/SANS.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
