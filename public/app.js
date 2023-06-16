@@ -7,7 +7,7 @@ const path = require('path'); // O_O
 const app = new express();
 const port = 8080;
 
-const dataFilePath = 'public/data.json'; // O_O
+const dataFilePath = './public/data2.json'; // O_O
 // const dataFilePath = path.join('public', 'data.json'); // O_O
 
 app.use(express.json());
@@ -29,13 +29,13 @@ app.get('/public/data', (_req, res) => {
   fs.readFile(dataFilePath, 'utf8', (err, data) => {
     if (err) {
       console.error('Error reading data file:', err);
-      res.status(500).json({ error: 'Failed to fetch data' });
+      res.status(500).json({ error: 'Failed to fetch dataRRRR' });
       return;
     }
 
     try {
-      const tableData = JSON.parse(data);
-      res.json(tableData);
+      // const tableData = JSON.parse(data);
+      res.json(JSON.parse(data));
     } catch (parseErr) {
       console.error('Error parsing JSON:', parseErr);
       res.status(500).json({ error: 'Failed to fetch data' });
@@ -44,7 +44,7 @@ app.get('/public/data', (_req, res) => {
 });
 
 // '/public/data' , '/data' , '/public/data.json' , dataFilePath
-app.post('/public/data', (req, res) => { 
+app.post('/public/data', async(req, res) => { 
   const { score, name, lastName } = req.body;
 
   if (!score || !name || !lastName) {
@@ -63,7 +63,7 @@ app.post('/public/data', (req, res) => {
 
     jsonData.scores.push(scores);
 
-    fs.writeFileSync(dataFilePath, JSON.stringify(jsonData));
+    fs.writeFileSync(dataFilePath, JSON.stringify(jsonData, null, 2));
 
     console.log('Data saved successfully.');
     return res.send('Data saved successfully');

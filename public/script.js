@@ -2,19 +2,19 @@
 // TESTAR PÅ LIVESERVER
 // const , var, let
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async() => {
   const tableBody = document.querySelector('#tableBody');
   const fetchButton = document.querySelector('#fetchButton');
   const submitButton = document.querySelector('#submitButton');
   const save2TxtButton = document.querySelector('#save2TxtButton');
 
   fetchButton.addEventListener('click', renderJSONData); // getData
-  submitButton.addEventListener('click', addRow); 
+  submitButton.addEventListener('click', addRow); // addrow / data
   save2TxtButton.addEventListener('click', printData); // printData
 
 // nånting här ska ändras
 // 'http://localhost:8080/public/data.json' '/public/data.json' 'data.json'
-const dataFilePath = '/public/data.json'; // <<-- samma som app.post? men använd inte .json men då funkar inget (?)
+const dataFilePath = './public/data'; // <<-- samma som app.post? men använd inte .json men då funkar inget (?)
 
 function createRow(score, name, lastName) {
   const tableRow = document.createElement('tr');
@@ -65,53 +65,37 @@ function addRow(event) {
       console.error('Error saving data:', err);
     });
 }
-
-// fetchar data
-async function getJSON(dataFilePath) {
-  let respone = await fetch(dataFilePath);
-  let jsonData = await respone.json();
-  return jsonData;
-}
-
-// visar data
-function renderJSONData() {
-  getJSON(dataFilePath)
-    .then(jsonData => {
-      jsonData.scores.forEach(function (e) {
-        document.getElementById('tableBody').innerHTML += `
-          <tr>
-          <td>${e.score}</td>
-          <td>${e.name}</td>
-          <td>${e.lastName}</td>
-          </tr>`;
-      });
-    })
-    .catch(err => {
-      console.error('Error fetching JSON data:', err);
-    });
-}
-
-renderJSONData();
-
 // update data
-async function updateJSONData(dataFilePath, scores) { 
-  let response = await fetch(dataFilePath);
-  let jsonData = await response.json();
-
-  jsonData.scores.push(scores);
-
+async function updateJSONData(dataFilePath, scores) {
   const options = {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(jsonData),
+    body: JSON.stringify(scores),
   };
 
   await fetch(dataFilePath, options);
   }
 
-  // sparar tableBody till txtfil fir the lols
+// visar data
+async function renderJSONData() {
+  let jsonData = await fetch(dataFilePath)
+      console.log(jsonData);
+  let data = await jsonData.json();
+      console.log(data);
+
+  data.scores.forEach(function (e) {
+    document.getElementById('tableBody').innerHTML += `
+      <tr>
+      <td>${e.score}</td>
+      <td>${e.name}</td>
+      <td>${e.lastName}</td>
+      </tr>`;
+  });
+}
+
+  // sparar tableBody till txtfil for the lols
   async function printData() {
     var tableBody = document.getElementById('tableBody');
     var data = [];
@@ -135,5 +119,7 @@ async function updateJSONData(dataFilePath, scores) {
     anchor.download = "tableBody.txt";
     anchor.click();
   }
+
+  await renderJSONData();
   
 });
